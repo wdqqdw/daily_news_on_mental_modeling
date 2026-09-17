@@ -69,6 +69,7 @@ def normalize_brief(result,source):
         value=value.replace('大型语言模型','大语言模型').replace('理论心智','心智理论')
         if re.search(r'appraisal',source,re.I):
             value=value.replace('评估引导','认知评价引导').replace('认知评估','认知评价')
+        if re.search(r'\btransformer',source,re.I):value=value.replace('变压器','Transformer')
         if '必要条件' in value and not re.search(r'\bnecess(?:ary|ity)\b',source,re.I):
             raise ValueError('Unsupported necessity claim in generated brief')
         result[key]=value.replace('实验证明','实验结果表明')

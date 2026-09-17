@@ -19,6 +19,8 @@ TARGET=re.compile(r'\b(theory.of.mind|mental (?:states?|model\w*|health)|mentali
 CONTRIBUTION=re.compile(r'\b(?:we(?:\s+\w+){0,2}|this (?:paper|work|study|article))\s+(?:propos\w*|introduc\w*|develop\w*|present\w*|design\w*)\b',re.I)
 METHOD_OBJECT=re.compile(r'\b(framework|algorithm|architecture|model|method|approach|agents?|system|inference procedure|training strategy)\b',re.I)
 EVALUATION_OBJECT=re.compile(r'\b(benchmarks?|datasets?|corpus|evaluation (?:protocol|framework)|assessment (?:protocol|framework))\b',re.I)
+CONTENT_TASK=re.compile(r'\b(cyberbullying|hate speech|toxicity|toxic content|fake news|misinformation|spam)\b',re.I)
+EXPLICIT_MIND=re.compile(r'\b(theory.of.mind|mental states?|belief\w*|intent\w*|personality|cognitive appraisal|emotion[ -](?:cause|shift|dynamics|reasoning))\b',re.I)
 AI=re.compile(r'\b(language models?|LLMs?|neural|computational|bayesian|learning|transformer|artificial intelligence|agent)\b',re.I)
 TOPIC_PATTERNS={
  'emotion':r'emoti\w*|affectiv\w*|empath\w*|appraisal',
@@ -57,6 +59,10 @@ def has_method_contribution(abstract):
 
 def eligible(p,today):
     title=p.get('title','');abstract=p.get('_abstract','');text=title+' '+abstract
+    # An emotion-aware content filter is not a model of someone's mental state.
+    # Keep content-related research only when its stated subject explicitly
+    # includes mental-state, intention, belief, or appraisal modeling.
+    if CONTENT_TASK.search(title) and not EXPLICIT_MIND.search(title):return False
     try:age=(today-date_floor(p['published'])).days
     except (ValueError,KeyError):return False
     return (0<=age<=730 and len(abstract.split())>=55 and not BAD.search(title)
