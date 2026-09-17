@@ -8,7 +8,7 @@ import unittest
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import core,build,sources
-from summarize import valid_brief
+from summarize import valid_brief,normalize_brief
 
 class PipelineTests(unittest.TestCase):
     def setUp(self):
@@ -45,6 +45,19 @@ class PipelineTests(unittest.TestCase):
         good={f:'中文说明用于研究人的情绪信念和内在心理状态。'*2 for f in core.FIELDS}
         self.assertTrue(valid_brief(good));good['method']=''
         self.assertFalse(valid_brief(good))
+    def test_benchmark_comparison_does_not_count_as_new_method(self):
+        abstract=('We introduce MOSAIC, a controlled benchmark for theory of mind and social action. '
+                  'We evaluate language models in cooperative scenarios. '
+                  'An existing model included as a structured architectural reference succeeds on these tasks.')
+        self.assertFalse(sources.has_method_contribution(abstract))
+        self.assertTrue(sources.has_method_contribution(abstract+' We further propose a new computational framework for belief inference.'))
+    def test_necessary_is_not_substituted_for_sufficient(self):
+        draft={f:'中文说明用于研究人的情绪信念和内在心理状态。'*2 for f in core.FIELDS}
+        draft['evidence']='实验结果说明明确的信念行动耦合是任务成功的必要条件。'
+        with self.assertRaises(ValueError):normalize_brief(draft,'Explicit belief-action coupling is sufficient for this task.')
+        draft['evidence']='当前实验结果支持这一方法的有效性，但不能推广到所有情境。'
+        draft['title_zh']='评估引导的理论心智建模'
+        self.assertEqual(normalize_brief(draft,'appraisal-guided theory of mind')['title_zh'],'认知评价引导的心智理论建模')
     def test_archive_is_immutable_and_html_is_escaped(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);data=root/'data/issues';site=root/'site';data.mkdir(parents=True);site.mkdir()

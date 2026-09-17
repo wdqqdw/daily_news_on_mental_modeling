@@ -16,7 +16,9 @@ from core import ROOT,date_floor,keys
 AGENT='DailyMentalModeling/1.0 (+https://github.com/wdqqdw/daily_news_on_mental_modeling)'
 BAD=re.compile(r'\b(survey|systematic review|scoping review|bibliometric|editorial|corrigendum|retraction|technical report|system card|model card|position paper)\b',re.I)
 TARGET=re.compile(r'\b(theory.of.mind|mental (?:states?|model\w*|health)|mentaliz\w*|emoti\w*|affective|empath\w*|appraisal|belief\w*|intentions?|intent inference|intent recognition|goal inference|personality|psycholog\w*|social (?:cogni\w*|world|simulat\w*)|human (?:behavio\w*|cogni\w*|decision\w*|preferen\w*))\b',re.I)
-METHOD=re.compile(r'\b(we (?:propose|introduce|develop|present)|our (?:model|method|framework|approach)|bayesian|inverse planning|reinforcement learning|state.transition)\b',re.I)
+CONTRIBUTION=re.compile(r'\b(?:we(?:\s+\w+){0,2}|this (?:paper|work|study|article))\s+(?:propos\w*|introduc\w*|develop\w*|present\w*|design\w*)\b',re.I)
+METHOD_OBJECT=re.compile(r'\b(framework|algorithm|architecture|model|method|approach|agents?|system|inference procedure|training strategy)\b',re.I)
+EVALUATION_OBJECT=re.compile(r'\b(benchmarks?|datasets?|corpus|evaluation (?:protocol|framework)|assessment (?:protocol|framework))\b',re.I)
 AI=re.compile(r'\b(language models?|LLMs?|neural|computational|bayesian|learning|transformer|artificial intelligence|agent)\b',re.I)
 TOPIC_PATTERNS={
  'emotion':r'emoti\w*|affectiv\w*|empath\w*|appraisal',
@@ -44,14 +46,25 @@ def fetch(url):
             if attempt==2:raise
         time.sleep(2**attempt)
 
+def has_method_contribution(abstract):
+    """A benchmark's comparison to an existing model is not a new modeling method."""
+    for sentence in re.split(r'(?<=[.!?])\s+(?=[A-Z])',abstract):
+        for match in CONTRIBUTION.finditer(sentence):
+            claim=sentence[match.end():match.end()+320]
+            if METHOD_OBJECT.search(claim) and not EVALUATION_OBJECT.search(claim):
+                return True
+    return False
+
 def eligible(p,today):
     title=p.get('title','');abstract=p.get('_abstract','');text=title+' '+abstract
     try:age=(today-date_floor(p['published'])).days
     except (ValueError,KeyError):return False
     return (0<=age<=730 and len(abstract.split())>=55 and not BAD.search(title)
-            and bool(TARGET.search(title)) and bool(METHOD.search(abstract)) and bool(AI.search(text)))
+            and bool(TARGET.search(title)) and has_method_contribution(abstract) and bool(AI.search(text)))
 
 def topic(p):
+    for key in ('world','intent','person','emotion','mind'):
+        if re.search(TOPIC_PATTERNS[key],p['title'],re.I):return key
     text=p['title']+' '+p['_abstract'][:500]
     # Explicit world models and intention inference take priority over incidental emotion/belief wording.
     for key in ('world','intent','emotion','mind','person'):
