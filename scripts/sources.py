@@ -167,4 +167,5 @@ def collect(today,include_preprints=True):
             if existing:
                 existing['doi_aliases']=list(set(existing.get('doi_aliases',[])+p.get('doi_aliases',[])+([p['doi']] if p.get('doi') else [])))
                 existing['url_aliases']=list(set(existing.get('url_aliases',[])+[p['url']]))
+                seen |= kk
     return unique,{'successful_sources':ok,'unavailable_sources':errors,'candidate_count':len(unique)}

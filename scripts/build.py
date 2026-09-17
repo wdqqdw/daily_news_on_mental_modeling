@@ -53,7 +53,7 @@ def build(rebuild=False):
     (SITE/'index.html').write_text(issue_page(issues[-1],len(issues)))
     entries=''.join(entry(p,i['date']) for i in reversed(issues) for p in i['papers'])
     cols=''
-    for state,label in [('unread','未了解'),('read','已了解')]:
+    for state,label in [('read','已了解'),('unread','未了解')]:
         cols+=f'''<section class="reading-column"><div class="reading-heading"><h2>{label} <span id="{state}-count">0</span></h2></div><label for="{state}-search">搜索{label}论文</label><input type="search" id="{state}-search" data-reading-search placeholder="标题、方法、作者、期刊或日期" aria-controls="{state}-list"><div id="{state}-list">{entries if state=='unread' else ''}</div><p class="reading-empty" id="{state}-empty">暂无内容</p></section>'''
     rows=''.join(f'<a class="archive-row" href="archive/{i["date"]}.html"><span aria-hidden="true">▤</span><strong>{i["date"]}</strong><span>第 {n:03} 期 · 3 篇论文</span><span>↗</span></a>' for n,i in reversed(list(enumerate(issues,1))))
     body=f'''<main id="main"><div class="archive-head"><div class="edition-label">THE READING ARCHIVE</div><h1>历史推送</h1><p>共 {len(issues)} 期 · {len(issues)*3} 篇论文。阅读标记保存在当前浏览器，不同设备暂不互通。</p></div><div class="reading-grid">{cols}</div><section class="date-archive"><h2>按日期回看 <span class="muted">独立 HTML 快照</span></h2>{rows}</section></main>'''
