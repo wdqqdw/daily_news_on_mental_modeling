@@ -1,0 +1,73 @@
+"""One immutable, non-repeating issue per Beijing date. Failure leaves the site intact."""
+import argparse
+import datetime as dt
+import json
+from pathlib import Path
+from zoneinfo import ZoneInfo
+from core import ROOT,DATA,history,keys,assert_unseen,validate,save_json
+from sources import collect,score
+from summarize import local_model,assess,summarize,MODEL_REPO
+from build import build
+
+def ranked_candidates(pool,seen,today):
+    remaining=[p for p in pool if not keys(p)&seen]
+    # Greedy topic rotation avoids using all review attempts on one subject.
+    out=[];used=set()
+    while remaining:
+        if len(used)>=5:used.clear()
+        diverse=[p for p in remaining if p['topic'] not in used]
+        p=max(diverse or remaining,key=lambda p:(score(p,today),p['title']))
+        remaining.remove(p);out.append(p);used.add(p['topic'])
+    return out
+
+def run(dry_run=False,output=None,discover_only=False):
+    now=dt.datetime.now(ZoneInfo('Asia/Shanghai'));today=now.date();path=DATA/f'{today}.json'
+    if path.exists() and not dry_run and not discover_only:
+        print('Existing edition preserved: '+str(today));build();return
+    config=json.loads((ROOT/'data/policy.json').read_text())
+    records=history();seen={k for r in records for k in r['keys']}
+    pool,report=collect(today,config['include_preprints'])
+    candidates=ranked_candidates(pool,seen,today)
+    cache=ROOT/'.cache';cache.mkdir(exist_ok=True)
+    # Source abstracts are temporary inputs, never public repository content.
+    save_json(cache/'candidates.json',candidates)
+    report['unseen_candidates']=len(candidates);save_json(cache/'source-report.json',report)
+    print(f'{len(candidates)} unseen candidates',flush=True)
+    if discover_only:return
+    selected=[];audit=[];used_topics=set();deferred=[]
+    with local_model() as base:
+        for p in candidates[:24]:
+            result=assess(base,p);audit.append({'title':p['title'],**result})
+            print('Topic review: '+str(result['accept'])+' '+p['title'],flush=True)
+            if not result['accept']:continue
+            p['topic']=result['topic'];p['selection_reason']=result['reason']
+            if p['topic'] in used_topics:
+                deferred.append(p);continue
+            selected.append(p);used_topics.add(p['topic'])
+            if len(selected)==3:break
+        for p in deferred:
+            if len(selected)==3:break
+            selected.append(p)
+        if len(selected)!=3:raise RuntimeError('Fewer than three qualified unseen methods; keep previous issue')
+        finished=[]
+        for p in selected:
+            p.update(summarize(base,p))
+            p['summary_method']='AI 根据公开摘要整理并复核；研究边界包含证据范围判断'
+            p['summary_model']=MODEL_REPO
+            p.pop('_abstract',None);p.pop('citations',None)
+            finished.append(p);save_json(cache/'preview.json',finished)
+            print('Chinese method brief ready: '+p['title_zh'],flush=True)
+    completed=dt.datetime.now(ZoneInfo('Asia/Shanghai'))
+    if completed.date()!=today:raise RuntimeError('Date changed during generation; retry for the new day')
+    issue={'date':str(today),'generated_at':completed.isoformat(timespec='seconds'),'papers':selected,'selection_report':report,'selection_method':'关键词初筛、方法相关性模型复核、主题多样性、原文摘要生成与二次核验'}
+    validate(issue);assert_unseen(issue,records)
+    save_json(cache/'selection-review.json',audit)
+    if output:save_json(Path(output),issue)
+    if dry_run:print('Live pipeline verified; published editions unchanged');return
+    # Exclusive creation makes a duplicate/manual rerun unable to overwrite history.
+    with path.open('x') as f:json.dump(issue,f,ensure_ascii=False,indent=2);f.write('\n')
+    build()
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--dry-run',action='store_true');p.add_argument('--output');p.add_argument('--discover-only',action='store_true')
+    a=p.parse_args();run(a.dry_run,a.output,a.discover_only)

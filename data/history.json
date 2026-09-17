@@ -1,0 +1,36 @@
+[
+  {
+    "first_pushed": "2026-09-17",
+    "title": "Beyond Semantic Similarity: Appraisal-Guided Chain-of-Thought Reasoning and Retrieval for Multimodal Emotional Support Conversations",
+    "url": "https://aclanthology.org/2026.findings-acl.844/",
+    "keys": [
+      "doi:10.18653/v1/2026.findings-acl.844",
+      "title:beyondsemanticsimilarityappraisalguidedchainofthoughtreasoningandretrievalformultimodalemotionalsupportconversations",
+      "title:从心理评价出发多模态情绪支持的推理与检索",
+      "url:https://aclanthology.org/2026.findings-acl.844"
+    ]
+  },
+  {
+    "first_pushed": "2026-09-17",
+    "title": "Understanding Epistemic Language with a Language-augmented Bayesian Theory of Mind",
+    "url": "https://aclanthology.org/2025.tacl-1.30/",
+    "keys": [
+      "doi:10.1162/tacl_a_00752",
+      "title:understandingepistemiclanguagewithalanguageaugmentedbayesiantheoryofmind",
+      "title:语言增强的贝叶斯心智理论推断他人的信念",
+      "url:https://aclanthology.org/2025.tacl-1.30"
+    ]
+  },
+  {
+    "first_pushed": "2026-09-17",
+    "title": "Building Social World Models with Large Language Models",
+    "url": "https://arxiv.org/abs/2606.11482",
+    "keys": [
+      "arxiv:2606.11482",
+      "doi:10.48550/arxiv.2606.11482",
+      "title:buildingsocialworldmodelswithlargelanguagemodels",
+      "title:社会世界模型学习事件如何改变群体信念",
+      "url:https://arxiv.org/abs/2606.11482"
+    ]
+  }
+]

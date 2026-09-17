@@ -1,0 +1,8 @@
+{
+  "include_preprints": true,
+  "daily_papers": 3,
+  "timezone": "Asia/Shanghai",
+  "scheduled_time": "09:00",
+  "maximum_age_days": 730,
+  "topics": ["emotion", "mind", "intent", "world", "person"]
+}
