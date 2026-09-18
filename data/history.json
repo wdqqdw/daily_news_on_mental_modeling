@@ -32,5 +32,38 @@
       "title:社会世界模型学习事件如何改变群体信念",
       "url:https://arxiv.org/abs/2606.11482"
     ]
+  },
+  {
+    "first_pushed": "2026-09-18",
+    "title": "Algorithm Design for User Emotion Perception and Psychological State Prediction in Large Language Model Interaction",
+    "url": "https://doi.org/10.7716/aem.v15i3.3447",
+    "keys": [
+      "doi:10.7716/aem.v15i3.3447",
+      "title:algorithmdesignforuseremotionperceptionandpsychologicalstatepredictioninlargelanguagemodelinteraction",
+      "title:大语言模型文本交互中用户情绪感知与心理状态预测算法设计",
+      "url:https://doi.org/10.7716/aem.v15i3.3447"
+    ]
+  },
+  {
+    "first_pushed": "2026-09-18",
+    "title": "When Correct Beliefs Collapse: Epistemic Resilience of LLMs under Clinical Pressure",
+    "url": "https://aclanthology.org/2026.acl-long.395/",
+    "keys": [
+      "doi:10.18653/v1/2026.acl-long.395",
+      "title:whencorrectbeliefscollapseepistemicresilienceofllmsunderclinicalpressure",
+      "title:当正确信念崩溃大语言模型在临床压力下的认知理论韧性",
+      "url:https://aclanthology.org/2026.acl-long.395"
+    ]
+  },
+  {
+    "first_pushed": "2026-09-18",
+    "title": "Question Tells You Where the Answer Is: Intention-aware Long-Context KV Cache Compression",
+    "url": "https://aclanthology.org/2026.acl-long.1250/",
+    "keys": [
+      "doi:10.18653/v1/2026.acl-long.1250",
+      "title:questiontellsyouwheretheanswerisintentionawarelongcontextkvcachecompression",
+      "title:问题告诉你答案在哪里意图感知的长上下文kv缓存压缩",
+      "url:https://aclanthology.org/2026.acl-long.1250"
+    ]
   }
 ]
