@@ -11,6 +11,10 @@ on:
         description: 'Verify discovery and Chinese research notes without changing the library'
         type: boolean
         default: false
+      discovery_only:
+        description: 'Check all recent/historical sources without starting the summary model'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -34,26 +38,31 @@ jobs:
       - name: Validate scope, deduplication, and archive invariants
         run: python -m unittest discover -s tests -v
       - uses: actions/cache/restore@v4
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' && !inputs.discovery_only
         id: model-cache
         with:
           path: .cache/summary
           key: summary-ubuntu-b10995-qwen25-7b-q4-v1
       - name: Prepare local Chinese paper editor
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' && !inputs.discovery_only
         run: python scripts/prepare_summary.py
       - uses: actions/cache/save@v4
-        if: github.event_name != 'push' && steps.model-cache.outputs.cache-hit != 'true'
+        if: github.event_name != 'push' && !inputs.discovery_only && steps.model-cache.outputs.cache-hit != 'true'
         with:
           path: .cache/summary
           key: summary-ubuntu-b10995-qwen25-7b-q4-v1
       - name: Verify live library collection
-        if: github.event_name == 'workflow_dispatch' && inputs.verify_sources
+        if: github.event_name == 'workflow_dispatch' && inputs.verify_sources && !inputs.discovery_only
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/update_library.py --dry-run --max-attempts 2 --max-reviews 8 --output .cache/verified-library.json
+      - name: Check all recent and historical sources
+        if: github.event_name == 'workflow_dispatch' && inputs.discovery_only
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/update_library.py --discover-only
       - name: Search recent and historical papers including arXiv
-        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.verify_sources)
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.verify_sources && !inputs.discovery_only)
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/update_library.py

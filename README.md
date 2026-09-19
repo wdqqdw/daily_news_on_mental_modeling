@@ -49,6 +49,6 @@ python scripts/update_library.py --dry-run --output .cache/verified-library.json
 python scripts/update_library.py
 ```
 
-手动验证：Actions → Mental Modeling · research library → Run workflow → 勾选 `verify_sources`。验证会实际调用全部检索来源，最多审阅 8 篇、尝试生成 2 篇笔记，但不会写入文献库或推进分页。取消勾选则运行一次完整收集。普通代码推送只构建、验证与发布，不启动模型收集。
+手动验证：Actions → Mental Modeling · research library → Run workflow → 勾选 `verify_sources`。验证会实际调用全部检索来源，最多审阅 8 篇、尝试生成 2 篇笔记，但不会写入文献库或推进分页。取消勾选则运行一次完整收集。勾选 `discovery_only` 可只检查全部真实检索来源，跳过模型且不写入内容；arXiv 新旧任一路完全失败仍会报错。普通代码推送只构建、验证与发布，不启动模型收集。
 
 数据：`data/library.json` 是累积文献库，`data/collection_status.json` 是最近检查记录，`data/collection_state.json` 保存历史检索分页和近期筛选记录。首页由 `scripts/build.py` 使用 `site/notebook.css` 与 `site/library.js` 生成，页面内嵌样式与脚本。`scripts/build_digest.py` 和 `scripts/update.py` 仅保留旧日报实现供历史兼容测试，不参与每日工作流。普通重建不会改写历史快照。

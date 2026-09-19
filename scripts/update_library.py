@@ -118,9 +118,9 @@ def run(dry_run=False, output=None, discover_only=False, max_attempts=8, max_rev
     report['unseen_candidates'] = len(candidates)
     save_json(cache / 'library-candidates.json', candidates); save_json(cache / 'source-report.json', report)
     print(f'{len(candidates)} unseen candidates', flush=True)
+    validate_source_coverage(report)
     if discover_only:
         return
-    validate_source_coverage(report)
     additions = []; audit = []
     if candidates:
         with local_model() as base:
