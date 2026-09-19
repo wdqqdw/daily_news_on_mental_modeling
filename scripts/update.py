@@ -3,6 +3,7 @@ import argparse
 import datetime as dt
 import json
 from pathlib import Path
+import urllib.error
 from zoneinfo import ZoneInfo
 from core import ROOT,DATA,history,keys,assert_unseen,validate,save_json
 from sources import collect,score
@@ -20,6 +21,52 @@ def ranked_candidates(pool,seen,today):
         remaining.remove(p);out.append(p);used.add(p['topic'])
     return out
 
+def make_briefs(base,candidates,cache,max_briefs=6):
+    """An invalid candidate must not discard already verified briefs."""
+    finished=[];audit=[];used_topics=set();deferred=[];attempts=0
+    save_json(cache/'preview.json',finished)
+    save_json(cache/'selection-review.json',audit)
+
+    def finish(p,entry):
+        nonlocal attempts
+        attempts+=1
+        try:
+            brief=summarize(base,p)
+        except (ValueError,OSError,urllib.error.URLError) as ex:
+            entry.update(brief_status='rejected',brief_error=str(ex)[:500])
+            save_json(cache/'selection-review.json',audit)
+            print('Skip invalid brief: '+p['title']+'; '+str(ex),flush=True)
+            return
+        paper={**p,**brief,'summary_method':'AI 根据公开摘要整理并复核；研究边界包含证据范围判断','summary_model':MODEL_REPO}
+        paper.pop('_abstract',None);paper.pop('citations',None)
+        finished.append(paper);used_topics.add(paper['topic'])
+        entry['brief_status']='ready'
+        save_json(cache/'preview.json',finished)
+        save_json(cache/'selection-review.json',audit)
+        print('Chinese method brief ready: '+paper['title_zh'],flush=True)
+
+    for candidate in candidates[:24]:
+        if len(finished)==3 or attempts>=max_briefs:break
+        p=dict(candidate)
+        try:result=assess(base,p)
+        except (ValueError,OSError,urllib.error.URLError) as ex:
+            audit.append({'title':p['title'],'accept':False,'review_error':str(ex)[:500]})
+            save_json(cache/'selection-review.json',audit)
+            continue
+        entry={'title':p['title'],**result};audit.append(entry)
+        save_json(cache/'selection-review.json',audit)
+        print('Topic review: '+str(result['accept'])+' '+p['title'],flush=True)
+        if not result['accept']:continue
+        p['topic']=result['topic'];p['selection_reason']=result['reason']
+        if p['topic'] in used_topics:deferred.append((p,entry));continue
+        finish(p,entry)
+    for p,entry in deferred:
+        if len(finished)==3 or attempts>=max_briefs:break
+        finish(p,entry)
+    if len(finished)!=3:
+        raise RuntimeError(f'Only {len(finished)} verified unseen briefs after {attempts} attempts; keep previous issue')
+    return finished
+
 def run(dry_run=False,output=None,discover_only=False):
     now=dt.datetime.now(ZoneInfo('Asia/Shanghai'));today=now.date();path=DATA/f'{today}.json'
     if path.exists() and not dry_run and not discover_only:
@@ -34,34 +81,12 @@ def run(dry_run=False,output=None,discover_only=False):
     report['unseen_candidates']=len(candidates);save_json(cache/'source-report.json',report)
     print(f'{len(candidates)} unseen candidates',flush=True)
     if discover_only:return
-    selected=[];audit=[];used_topics=set();deferred=[]
     with local_model() as base:
-        for p in candidates[:24]:
-            result=assess(base,p);audit.append({'title':p['title'],**result})
-            print('Topic review: '+str(result['accept'])+' '+p['title'],flush=True)
-            if not result['accept']:continue
-            p['topic']=result['topic'];p['selection_reason']=result['reason']
-            if p['topic'] in used_topics:
-                deferred.append(p);continue
-            selected.append(p);used_topics.add(p['topic'])
-            if len(selected)==3:break
-        for p in deferred:
-            if len(selected)==3:break
-            selected.append(p)
-        if len(selected)!=3:raise RuntimeError('Fewer than three qualified unseen methods; keep previous issue')
-        finished=[]
-        for p in selected:
-            p.update(summarize(base,p))
-            p['summary_method']='AI 根据公开摘要整理并复核；研究边界包含证据范围判断'
-            p['summary_model']=MODEL_REPO
-            p.pop('_abstract',None);p.pop('citations',None)
-            finished.append(p);save_json(cache/'preview.json',finished)
-            print('Chinese method brief ready: '+p['title_zh'],flush=True)
+        selected=make_briefs(base,candidates,cache)
     completed=dt.datetime.now(ZoneInfo('Asia/Shanghai'))
     if completed.date()!=today:raise RuntimeError('Date changed during generation; retry for the new day')
     issue={'date':str(today),'generated_at':completed.isoformat(timespec='seconds'),'papers':selected,'selection_report':report,'selection_method':'关键词初筛、方法相关性模型复核、主题多样性、原文摘要生成与二次核验'}
     validate(issue);assert_unseen(issue,records)
-    save_json(cache/'selection-review.json',audit)
     if output:save_json(Path(output),issue)
     if dry_run:print('Live pipeline verified; published editions unchanged');return
     # Exclusive creation makes a duplicate/manual rerun unable to overwrite history.

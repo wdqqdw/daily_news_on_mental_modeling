@@ -57,8 +57,21 @@ def has_method_contribution(abstract):
                 return True
     return False
 
+def off_scope_reason(p):
+    title=p.get('title','')
+    if re.search(r'\b(?:KV[ -]cache|cache compression|cache eviction)\b',title,re.I):
+        return '缓存优化不是对人的意图或心智进行建模。'
+    # Possessive wording and explicit stability studies target the model's own
+    # beliefs, unlike LLM-based inference of another person's mental states.
+    if (re.search(r'\bLLMs?[’\']\s*(?:stated\s+)?belief',title,re.I)
+        or re.search(r'\bLLMs?\s+belief\s+resistance\b',title,re.I)
+        or re.search(r'\bepistemic resilience of (?:LLMs?|language models?)\b',title,re.I)):
+        return '研究语言模型自身信念的稳定性，不是推断或模拟人的心智。'
+    return ''
+
 def eligible(p,today):
     title=p.get('title','');abstract=p.get('_abstract','');text=title+' '+abstract
+    if off_scope_reason(p):return False
     # An emotion-aware content filter is not a model of someone's mental state.
     # Keep content-related research only when its stated subject explicitly
     # includes mental-state, intention, belief, or appraisal modeling.

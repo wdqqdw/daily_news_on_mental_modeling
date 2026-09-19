@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-import core,build,sources
+import core,build,sources,summarize,update
 from summarize import valid_brief,normalize_brief
 
 class PipelineTests(unittest.TestCase):
@@ -45,6 +45,50 @@ class PipelineTests(unittest.TestCase):
         good={f:'中文说明用于研究人的情绪信念和内在心理状态。'*2 for f in core.FIELDS}
         self.assertTrue(valid_brief(good));good['method']=''
         self.assertFalse(valid_brief(good))
+    def test_invalid_brief_is_repaired_with_source_and_field_feedback(self):
+        good={f:'中文说明用于研究人的情绪信念和内在心理状态。'*2 for f in core.FIELDS}
+        bad={**good,'target':'人格'}
+        p={'title':'PsyPath','_abstract':'We propose a model of human personality.'}
+        with patch.object(summarize,'request',side_effect=[good,bad,good]) as request:
+            self.assertEqual(summarize.summarize('local',p),good)
+            self.assertEqual(request.call_count,3)
+            self.assertIn('target',request.call_args.args[2])
+            self.assertIn(p['_abstract'],request.call_args.args[2])
+    def test_repeated_invalid_brief_still_fails_quality_gate(self):
+        bad={f:'太短' for f in core.FIELDS}
+        with patch.object(summarize,'request',return_value=bad) as request:
+            with self.assertRaisesRegex(ValueError,'Invalid Chinese method brief'):
+                summarize.summarize('local',{'title':'Example','_abstract':'A study.'})
+            self.assertEqual(request.call_count,4)
+    def test_bad_candidate_is_replaced_without_losing_verified_briefs(self):
+        candidates=[{'title':str(i),'topic':topic,'_abstract':'Source abstract'} for i,topic in enumerate(['emotion','mind','world','person'])]
+        brief={f:'中文说明用于研究人的情绪信念和内在心理状态。'*2 for f in core.FIELDS}
+        with tempfile.TemporaryDirectory() as tmp, patch.object(update,'assess',side_effect=lambda base,p:{'accept':True,'topic':p['topic'],'reason':'方法'}), patch.object(update,'summarize',side_effect=[brief,ValueError('bad target'),brief,brief]) as generate:
+            papers=update.make_briefs('local',candidates,Path(tmp))
+            self.assertEqual([p['title'] for p in papers],['0','2','3'])
+            self.assertEqual(generate.call_count,4)
+            self.assertTrue(all('_abstract' not in p for p in papers))
+            self.assertTrue(all('_abstract' in p for p in candidates))
+            audit=json.loads((Path(tmp)/'selection-review.json').read_text())
+            self.assertEqual(audit[1]['brief_status'],'rejected')
+            self.assertEqual(audit[1]['brief_error'],'bad target')
+    def test_brief_failures_are_bounded_and_audited(self):
+        candidates=[{'title':str(i),'topic':'emotion','_abstract':'Source'} for i in range(10)]
+        with tempfile.TemporaryDirectory() as tmp, patch.object(update,'assess',return_value={'accept':True,'topic':'emotion','reason':'方法'}), patch.object(update,'summarize',side_effect=ValueError('bad brief')) as generate:
+            with self.assertRaisesRegex(RuntimeError,'keep previous issue'):
+                update.make_briefs('local',candidates,Path(tmp))
+            self.assertEqual(generate.call_count,6)
+            self.assertEqual(json.loads((Path(tmp)/'preview.json').read_text()),[])
+            self.assertEqual(len(json.loads((Path(tmp)/'selection-review.json').read_text())),6)
+    def test_model_internal_optimization_is_not_human_mental_modeling(self):
+        for title in [
+            'Question Tells You Where the Answer Is: Intention-aware Long-Context KV Cache Compression',
+            'When Correct Beliefs Collapse: Epistemic Resilience of LLMs under Clinical Pressure',
+            'Vulnerability of LLMs’ Stated Belief? LLMs Belief Resistance Check Through Strategic Persuasive Conversation Interventions',
+        ]:
+            self.assertTrue(sources.off_scope_reason({'title':title}))
+        for title in ['Sentipolis: Emotion-Aware Agents for Social Simulations','LLM-based Theory of Mind for Human Belief Inference']:
+            self.assertFalse(sources.off_scope_reason({'title':title}))
     def test_benchmark_comparison_does_not_count_as_new_method(self):
         abstract=('We introduce MOSAIC, a controlled benchmark for theory of mind and social action. '
                   'We evaluate language models in cooperative scenarios. '
