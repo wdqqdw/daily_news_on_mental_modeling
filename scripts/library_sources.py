@@ -152,10 +152,10 @@ def collect(today, state=None):
     state = copy.deepcopy(state or {'version':1,'pages':{},'reviews':{}})
     pages = state.setdefault('pages', {}); tasks = []; date_index = today.toordinal()
     themes = list(ARXIV_THEMES); cutoff = today-dt.timedelta(days=365)
-    recent_terms = [t for values in ARXIV_THEMES.values() for t in values]
-    # Two broad recent searches plus three independently paged historical topics daily.
-    for i in range(2):
-        tasks.append((f'arXiv recent {i+1}',get_arxiv,(recent_terms[i::2],today,'recent',0),'recent',None))
+    # Keep Boolean queries short: long combined queries can receive HTTP 406.
+    # Search every recent theme, plus three independently paged historical topics.
+    for theme in themes:
+        tasks.append(('arXiv recent '+theme,get_arxiv,(ARXIV_THEMES[theme],today,'recent',0),'recent',None))
     for i in range(3):
         theme = themes[(date_index*3+i)%len(themes)]; key = 'arxiv:'+theme
         tasks.append(('arXiv history '+theme,get_arxiv,(ARXIV_THEMES[theme],today,'history',pages.get(key,0)),'history',key))

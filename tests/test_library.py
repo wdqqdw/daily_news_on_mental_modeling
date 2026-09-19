@@ -132,5 +132,16 @@ class LibraryTests(unittest.TestCase):
         self.assertTrue(all(value==60 for key,value in values.items() if key.startswith('arxiv:')))
         self.assertTrue(all(value==70 for key,value in values.items() if key.startswith('crossref')))
 
+    def test_arxiv_recent_and_history_must_both_be_checked(self):
+        with self.assertRaises(RuntimeError):
+            update.validate_source_coverage({'successful_sources':['arXiv history mind','ACL: 2026.acl']})
+        with self.assertRaises(RuntimeError):
+            update.validate_source_coverage({'successful_sources':['arXiv recent mind']})
+        update.validate_source_coverage({'successful_sources':['arXiv recent mind','arXiv history mind']})
+
+    def test_recent_arxiv_queries_stay_short(self):
+        for terms in sources.ARXIV_THEMES.values():
+            self.assertLess(len(sources.arxiv_query(terms,self.today)),1800)
+
 if __name__ == '__main__':
     unittest.main()
