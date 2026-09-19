@@ -143,5 +143,35 @@ class LibraryTests(unittest.TestCase):
         for terms in sources.ARXIV_THEMES.values():
             self.assertLess(len(sources.arxiv_query(terms,self.today)),1800)
 
+    def test_datacite_arxiv_uses_first_submission_not_doi_registration(self):
+        item={'attributes':{'doi':'10.48550/arxiv.1306.5279','state':'findable','url':'https://arxiv.org/abs/1306.5279',
+            'titles':[{'title':'Emotion modeling for human social interaction'}],
+            'descriptions':[{'descriptionType':'Abstract','description':'We model human emotional states and predict social behavior. '*10}],
+            'publicationYear':2013,'created':'2026-09-20T00:00:00Z',
+            'dates':[{'dateType':'Submitted','date':'2015-01-01'},{'dateType':'Submitted','date':'2013-06-22T01:02:03Z'}],
+            'relatedIdentifiers':[{'relatedIdentifierType':'DOI','relationType':'IsVersionOf','relatedIdentifier':'10.1234/formal'},
+                                  {'relatedIdentifierType':'DOI','relationType':'References','relatedIdentifier':'10.1234/cited'}]}}
+        rows=sources.datacite_arxiv_rows([item],self.today,'history')
+        self.assertEqual(rows[0]['published'],'2013-06-22')
+        self.assertEqual(rows[0]['doi_aliases'],['10.1234/formal'])
+        self.assertEqual(rows[0]['status'],'preprint')
+        self.assertEqual(sources.datacite_arxiv_rows([item],self.today,'recent'),[])
+        item['attributes']['url']='https://example.com/abs/1306.5279'
+        self.assertEqual(sources.datacite_arxiv_rows([item],self.today,'history'),[])
+
+    def test_fallback_keeps_independent_pagination_and_records_provenance(self):
+        with patch.object(sources,'get_arxiv',side_effect=RuntimeError('HTTP 406')),patch.object(sources,'get_datacite_arxiv',return_value=([],200)) as fallback:
+            result=sources.discover_arxiv(['emotion'],self.today,'history',120,60)
+        fallback.assert_called_once_with(['emotion'],self.today,'history',60)
+        self.assertEqual(result[2:4],('datacite','HTTP 406'))
+        with patch.object(sources,'get_arxiv',side_effect=RuntimeError('HTTP 406')),patch.object(sources,'get_datacite_arxiv',return_value=([],200)),patch.object(sources,'crossref',return_value=([],0)),patch.object(sources,'get_acl',return_value=[]):
+            _,report=sources.collect(self.today)
+        self.assertEqual(len(report['fallback_sources']),9)
+        self.assertTrue(any(key.startswith('datacite:') for key in report['_next_state']['pages']))
+        self.assertFalse(any(key.startswith('arxiv:') for key in report['_next_state']['pages']))
+        update.validate_source_coverage(report)
+        report['unavailable_sources']=['arXiv recent world: both services failed']
+        with self.assertRaises(RuntimeError):update.validate_source_coverage(report)
+
 if __name__ == '__main__':
     unittest.main()

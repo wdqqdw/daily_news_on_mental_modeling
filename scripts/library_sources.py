@@ -93,6 +93,7 @@ ARXIV_THEMES = {
  'social': ['social simulation','social agents','human behavior modeling','social reasoning','interpersonal relationship','human preference learning'],
 }
 ARXIV_LOCK = threading.Lock()
+DATACITE_LOCK = threading.Lock()
 NS = {'a':'http://www.w3.org/2005/Atom','x':'http://arxiv.org/schemas/atom','o':'http://a9.com/-/spec/opensearch/1.1/'}
 
 def arxiv_rows(content, today):
@@ -155,16 +156,71 @@ def get_arxiv(terms, today, lane='recent', start=0):
                 time.sleep(3.1)
     return arxiv_rows(content, today)
 
+def datacite_arxiv_rows(items, today, lane):
+    """Read arXiv-deposited DOI metadata, never DOI registration dates as publication."""
+    out=[]; cutoff=today-dt.timedelta(days=365)
+    for item in items:
+        x=item.get('attributes',{}); doi=x.get('doi','')
+        match=re.fullmatch(r'10\.48550/arxiv\.(.+)',doi,re.I)
+        if not match or x.get('state')!='findable':continue
+        aid=match[1]; url='https://arxiv.org/abs/'+aid
+        landing=urllib.parse.urlsplit(x.get('url',''))
+        if landing.hostname not in ('arxiv.org','www.arxiv.org') or landing.path.lower()!='/abs/'+aid.lower():continue
+        descriptions=x.get('descriptions',[])
+        abstract=clean(' '.join(d.get('description','') for d in descriptions if d.get('descriptionType')=='Abstract'))
+        if re.search(r'withdrawn|retracted', ' '.join(d.get('description','') for d in descriptions), re.I):continue
+        dates={}
+        for entry in x.get('dates',[]):
+            date=entry.get('date','')[:10]
+            try:date_floor(date)
+            except ValueError:continue
+            dates.setdefault(entry.get('dateType'),[]).append(date)
+        published=min(dates.get('Submitted') or dates.get('Available') or dates.get('Issued') or [str(x.get('publicationYear',''))],key=date_floor)
+        if (date_floor(published)>=cutoff)!=(lane=='recent'):continue
+        creators=x.get('creators',[])
+        aliases=[r['relatedIdentifier'] for r in x.get('relatedIdentifiers',[]) if r.get('relatedIdentifierType')=='DOI' and r.get('relationType') in ('IsVersionOf','IsIdenticalTo')]
+        p={'title':clean(' '.join(t.get('title','') for t in x.get('titles',[]))), '_abstract':abstract,
+           'url':url,'pdf':'https://arxiv.org/pdf/'+aid,'doi':doi,'doi_aliases':aliases,
+           'published':published,'authors':creators[0]['name']+(' et al.' if len(creators)>1 else '') if creators else 'Authors in paper',
+           'venue':'arXiv','status':'preprint','metadata_source':'arXiv / DataCite',
+           'summary_source':'https://api.datacite.org/dois/'+urllib.parse.quote(doi,safe=''),
+           'arxiv_id':aid,'arxiv_updated':max(dates.get('Updated') or [published],key=date_floor)}
+        if eligible(p,today):out.append(p)
+    return out
+
+def get_datacite_arxiv(terms,today,lane='recent',start=0):
+    cutoff=today-dt.timedelta(days=365)
+    phrases=' OR '.join('(titles.title:"'+term+'" OR descriptions.description:"'+term+'")' for term in terms)
+    years=f'{cutoff.year} TO {today.year}' if lane=='recent' else f'1991 TO {cutoff.year}'
+    params={'prefix':'10.48550','query':'('+phrases+') AND publicationYear:['+years+']',
+            'page[size]':60,'page[number]':start//60+1}
+    if lane=='recent':params['sort']='-published'
+    with DATACITE_LOCK:
+        try:
+            data=json.loads(fetch('https://api.datacite.org/dois?'+urllib.parse.urlencode(params)))
+        finally:time.sleep(1.1)
+    return datacite_arxiv_rows(data['data'],today,lane),int(data['meta']['total'])
+
+def discover_arxiv(terms,today,lane='recent',start=0,datacite_start=0):
+    try:
+        rows,total=get_arxiv(terms,today,lane,start)
+        return rows,total,'arxiv',None
+    except (OSError,ValueError,RuntimeError,ET.ParseError) as ex:
+        # DataCite is arXiv's public DOI registry, with its own API and deposited abstracts.
+        # Keep independent pagination because the two services order results differently.
+        rows,total=get_datacite_arxiv(terms,today,lane,datacite_start)
+        return rows,total,'datacite',str(ex)[:300]
+
 def collect(today, state=None):
     state = copy.deepcopy(state or {'version':1,'pages':{},'reviews':{}})
     pages = state.setdefault('pages', {}); tasks = []; date_index = today.toordinal()
     themes = list(ARXIV_THEMES); cutoff = today-dt.timedelta(days=365)
     # Search every recent theme, plus three independently paged historical topics.
     for theme in themes:
-        tasks.append(('arXiv recent '+theme,get_arxiv,(ARXIV_THEMES[theme],today,'recent',0),'recent',None))
+        tasks.append(('arXiv recent '+theme,discover_arxiv,(ARXIV_THEMES[theme],today,'recent',0),'recent',None))
     for i in range(3):
         theme = themes[(date_index*3+i)%len(themes)]; key = 'arxiv:'+theme
-        tasks.append(('arXiv history '+theme,get_arxiv,(ARXIV_THEMES[theme],today,'history',pages.get(key,0)),'history',key))
+        tasks.append(('arXiv history '+theme,discover_arxiv,(ARXIV_THEMES[theme],today,'history',pages.get(key,0),pages.get('datacite:'+theme,0)),'history',key))
     journal_items = list(JOURNALS.items())
     for name, issn in journal_items:
         tasks.append(('Journal recent: '+name,crossref,('emotion belief mental cognition human social world model intention',today,issn),'recent',None))
@@ -178,19 +234,25 @@ def collect(today, state=None):
     for theme in (themes[date_index%len(themes)],themes[(date_index+1)%len(themes)]):
         key='crossref-topic:'+theme
         tasks.append(('Crossref history: '+theme,crossref,(' '.join(ARXIV_THEMES[theme]),today,None,'1900-01-01',str(cutoff-dt.timedelta(days=1)),pages.get(key,0)),'history',key))
-    papers=[];ok=[];errors=[];not_available=[]
+    papers=[];ok=[];errors=[];not_available=[];fallbacks=[]
     with ThreadPoolExecutor(max_workers=5) as pool:
         futures={pool.submit(fn,*args):(name,lane,key) for name,fn,args,lane,key in tasks}
         for future in as_completed(futures):
             name,lane,key=futures[future]
             try:
                 result=future.result()
-                rows,total=result if isinstance(result,tuple) else (result,None)
+                if isinstance(result,tuple) and len(result)==4:
+                    rows,total,backend,warning=result
+                    if backend=='datacite':
+                        fallbacks.append(name+': DataCite arXiv DOI metadata; '+warning)
+                        name+=' via DataCite'
+                        if key:key=key.replace('arxiv:','datacite:',1)
+                else:rows,total=result if isinstance(result,tuple) else (result,None)
                 for p in rows:
                     p['_lane']='recent' if date_floor(p['published'])>=cutoff else 'history'
                 papers.extend(rows);ok.append(name)
                 if key:
-                    old=pages.get(key,0);step=60 if key.startswith('arxiv:') else 70
+                    old=pages.get(key,0);step=60 if key.startswith(('arxiv:','datacite:')) else 70
                     # Crossref's relevance offset is bounded; empty pages restart a topic.
                     pages[key]=old+step if (old+step<total if total is not None else bool(rows) and old<980) else 0
                 print(f'{name}: {len(rows)} candidates',flush=True)
@@ -212,7 +274,7 @@ def collect(today, state=None):
         p['group']=classify(p['venue']);p['topic']=topic(p)
         if re.search(r'cogniti\w*|human learning|human reading|hippocamp\w*',p['title'],re.I) and p['topic']=='mind':p['topic']='cognition'
         unique.append(p);seen|=identities
-    return unique,{'successful_sources':sorted(ok),'unavailable_sources':sorted(errors),'not_published_sources':sorted(not_available),
+    return unique,{'successful_sources':sorted(ok),'unavailable_sources':sorted(errors),'fallback_sources':sorted(fallbacks),'not_published_sources':sorted(not_available),
                   'candidate_count':len(unique),'recent_candidates':sum(p['_lane']=='recent' for p in unique),
                   'historical_candidates':sum(p['_lane']=='history' for p in unique),'search_mode':'recent-and-historical',
                   '_next_state':state}

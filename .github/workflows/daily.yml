@@ -60,27 +60,7 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.discovery_only
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          python - <<'PY'
-          import datetime, sys, urllib.request, urllib.error, urllib.parse, time
-          sys.path.insert(0, 'scripts')
-          from library_sources import arxiv_query, ARXIV_THEMES, AGENT
-          from zoneinfo import ZoneInfo
-          today = datetime.datetime.now(ZoneInfo('Asia/Shanghai')).date()
-          original = arxiv_query(ARXIV_THEMES['world'], today)
-          params = dict(urllib.parse.parse_qsl(urllib.parse.urlsplit(original).query))
-          variants = [('original', original)]
-          for name, changes in [('simple', {'search_query':'ti:"mental world model"'}), ('undated', {'search_query':params['search_query'].split(' AND submittedDate:')[0]}), ('relevance', {'sortBy':'relevance'})]:
-              variants.append((name, 'https://export.arxiv.org/api/query?' + urllib.parse.urlencode({**params, **changes})))
-          for name, url in variants:
-              try:
-                  with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent':AGENT}), timeout=40) as response:
-                      print('ARXIV DIAGNOSTIC', name, response.status, dict(response.headers), response.read(300).decode(), flush=True)
-              except urllib.error.HTTPError as error:
-                  print('ARXIV DIAGNOSTIC', name, error.code, dict(error.headers), error.read(1500).decode(errors='replace'), flush=True)
-              time.sleep(3.1)
-          PY
-          python scripts/update_library.py --discover-only
+        run: python scripts/update_library.py --discover-only
       - name: Search recent and historical papers including arXiv
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.verify_sources && !inputs.discovery_only)
         env:

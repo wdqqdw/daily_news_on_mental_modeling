@@ -15,6 +15,8 @@ STATUS = ROOT / 'data/collection_status.json'
 STATE = ROOT / 'data/collection_state.json'
 
 def validate_source_coverage(report):
+    if any(name.startswith('arXiv ') for name in report.get('unavailable_sources',[])):
+        raise RuntimeError('Some arXiv topics failed in both search services; retain published library')
     for lane in ('recent','history'):
         if not any(name.startswith('arXiv '+lane+' ') for name in report['successful_sources']):
             raise RuntimeError('arXiv '+lane+' searches unavailable; see source-report.json and retain published library')
