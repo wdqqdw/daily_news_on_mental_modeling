@@ -26,7 +26,8 @@ class LibraryTests(unittest.TestCase):
             self.assertEqual(lib.classify(name), 'family')
         for name in ('ICML 2026', 'Findings of ACL 2026', 'Journal of Artificial Intelligence Research'):
             self.assertEqual(lib.classify(name), 'ai')
-        for name in ('Nature Fake Journal', 'Science Fiction', 'Advanced Electromagnetics', 'arXiv', 'ACL Fake Journal'):
+        self.assertEqual(lib.classify('arXiv'),'arxiv')
+        for name in ('Nature Fake Journal', 'Science Fiction', 'Advanced Electromagnetics', 'ACL Fake Journal'):
             self.assertIsNone(lib.classify(name))
 
     def test_initial_library_and_archive_identity(self):
@@ -81,6 +82,55 @@ class LibraryTests(unittest.TestCase):
         self.assertEqual(papers[0]['published'], '2026-08')
         item['update-to'] = [{'type': 'retraction'}]
         self.assertEqual(sources.crossref_rows([item], self.today), [])
+
+    def test_historical_papers_have_no_two_year_cutoff(self):
+        p=copy.deepcopy(self.data['papers'][0]);p['published']='1998'
+        p['_abstract']='This computational model explains human cognition and mental states. '*10
+        self.assertTrue(sources.eligible(p,self.today))
+        p['published']='2099'
+        self.assertFalse(sources.eligible(p,self.today))
+
+    def test_arxiv_metadata_preserves_status_and_versions(self):
+        xml='''<feed xmlns="http://www.w3.org/2005/Atom" xmlns:x="http://arxiv.org/schemas/atom"><entry><id>http://arxiv.org/abs/1306.5279v2</id><title>Emotion modeling for human interaction</title><published>2013-06-22T00:00:00Z</published><author><name>Researcher</name></author><x:doi>10.1234/formal</x:doi><x:journal_ref>Nature 2026</x:journal_ref><summary>'''+'We model human emotional states and predict social behavior. '*10+'''</summary></entry></feed>'''
+        rows,_=sources.arxiv_rows(xml,self.today)
+        self.assertEqual(rows[0]['arxiv_id'],'1306.5279')
+        self.assertEqual(rows[0]['status'],'preprint')
+        self.assertEqual(rows[0]['doi_aliases'],['10.1234/formal'])
+        self.assertEqual(rows[0]['venue'],'arXiv')
+        withdrawn=xml.replace('</entry>','<x:comment>This paper has been withdrawn.</x:comment></entry>')
+        self.assertEqual(sources.arxiv_rows(withdrawn,self.today)[0],[])
+
+    def test_recent_and_history_alternate_in_review_queue(self):
+        pool=[]
+        for i in range(8):
+            p=copy.deepcopy(self.data['papers'][0]);p.update(title=f'Human emotion model {i}',url=f'https://example.org/{i}',doi=f'10.1234/{i}',published='2026-09-01' if i<4 else '2010')
+            pool.append(p)
+        ranked=update.rank(pool,set(),self.today)
+        self.assertEqual([p['_lane'] for p in ranked[:6]],['recent','history']*3)
+        reviews={uid(ranked[0]):{'reviewed_at':'2026-09-19','error':False}}
+        self.assertNotIn(uid(ranked[0]),[uid(p) for p in update.rank(pool,set(),self.today,reviews)])
+
+    def test_arxiv_history_query_paginates_beyond_recent_year(self):
+        from urllib.parse import urlsplit,parse_qs
+        query=parse_qs(urlsplit(sources.arxiv_query(['mental world model'],self.today,'history',120)).query)
+        self.assertIn('199101010000 TO 202509192359',query['search_query'][0])
+        self.assertEqual(query['start'],['120'])
+        self.assertEqual(query['sortBy'],['relevance'])
+
+    def test_arxiv_and_formal_aliases_keep_reading_identity(self):
+        p=copy.deepcopy(self.data['papers'][0]);old_id=p['id']
+        version=copy.deepcopy(p);version.update(title='Updated formal title for the same research',doi='10.1234/new-formal-version')
+        enriched=update.enrich_identities({'version':2,'updated':self.data['updated'],'papers':[p]},[version])
+        self.assertEqual(enriched['papers'][0]['id'],old_id)
+        formal={**version,'url':'https://example.org/formal'}
+        self.assertEqual(update.rank([formal],keys(enriched['papers'][0]),self.today),[])
+
+    def test_historical_pages_advance_even_without_eligible_results(self):
+        with patch.object(sources,'get_arxiv',return_value=([],200)),patch.object(sources,'crossref',return_value=([],200)),patch.object(sources,'get_acl',return_value=[]):
+            _,report=sources.collect(self.today)
+        values=report['_next_state']['pages']
+        self.assertTrue(all(value==60 for key,value in values.items() if key.startswith('arxiv:')))
+        self.assertTrue(all(value==70 for key,value in values.items() if key.startswith('crossref')))
 
 if __name__ == '__main__':
     unittest.main()

@@ -21,7 +21,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 55
     permissions:
       contents: write
     steps:
@@ -51,8 +51,8 @@ jobs:
         if: github.event_name == 'workflow_dispatch' && inputs.verify_sources
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/update_library.py --dry-run --output .cache/verified-library.json
-      - name: Collect and append relevant papers
+        run: python scripts/update_library.py --dry-run --max-attempts 2 --max-reviews 8 --output .cache/verified-library.json
+      - name: Search recent and historical papers including arXiv
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.verify_sources)
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -76,7 +76,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/library.json data/collection_status.json site/index.html site/collection-status.json site/.nojekyll
+          git add data/library.json data/collection_status.json data/collection_state.json site/index.html site/collection-status.json site/.nojekyll
           if ! git diff --cached --quiet; then
             git commit -m "chore: collect mental modeling papers $(TZ=Asia/Shanghai date +%F)"
             git push origin HEAD:main

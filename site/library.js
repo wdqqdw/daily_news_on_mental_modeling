@@ -7,7 +7,7 @@
  const memory=new Map();let unavailable=false,timer,undoAction=null,expanded=false;
  const params=new URLSearchParams(location.search);
  let state=params.get('state')==='read'?'read':'unread';
- let group=['main','family','ai'].includes(params.get('group'))?params.get('group'):'all';
+ let group=config.groups.includes(params.get('group'))?params.get('group'):'all';
  const search=document.getElementById('search'),topic=document.getElementById('topic-filter'),sort=document.getElementById('sort');
  search.value=params.get('q')||'';
  if(Array.from(topic.options).some(x=>x.value===params.get('topic')))topic.value=params.get('topic');
@@ -29,7 +29,7 @@
  }
  function render(){
   document.getElementById('group-filter').value=group;
-  const terms=normalize(search.value).split(' ').filter(Boolean),counts={all:0,main:0,family:0,ai:0};let readTotal=0,shown=0;
+  const terms=normalize(search.value).split(' ').filter(Boolean),counts=Object.fromEntries(['all',...config.groups].map(key=>[key,0]));let readTotal=0,shown=0;
   papers.forEach(p=>{
    const id=p.dataset.id,isRead=read(id);if(isRead)readTotal++;
    const button=p.querySelector('.mark-read');button.disabled=false;button.setAttribute('aria-pressed',String(isRead));
@@ -55,7 +55,7 @@
   document.getElementById('empty-action').textContent=filtered?'清除筛选':state==='read'?'去没看过的文献':'回看已读文献';updateUrl();
  }
  function reset(){search.value='';topic.value='all';group='all';render();}
- function order(){document.querySelectorAll('.paper-list').forEach(list=>Array.from(list.children).sort((a,b)=>{const key=sort.value==='added'?'added':'date';const value=a.dataset[key].localeCompare(b.dataset[key]);return(sort.value==='oldest'?value:-value)||a.id.localeCompare(b.id);}).forEach(p=>list.appendChild(p)));}
+ function order(){document.querySelectorAll('.paper-list').forEach(list=>Array.from(list.children).sort((a,b)=>{const key=sort.value==='added'?'added':'date';const value=a.dataset[key].localeCompare(b.dataset[key]);return(sort.value==='oldest'?value:-value)||(key==='added'?b.dataset.date.localeCompare(a.dataset.date):0)||a.id.localeCompare(b.id);}).forEach(p=>list.appendChild(p)));}
  papers.forEach(p=>{
   const id=p.dataset.id,button=p.querySelector('.mark-read'),textarea=p.querySelector('textarea'),badge=p.querySelector('.has-note');
   textarea.value=get(notePrefix+id)||'';badge.hidden=!textarea.value.trim();

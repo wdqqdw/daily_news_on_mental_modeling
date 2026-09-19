@@ -9,7 +9,9 @@ GROUPS={
  'main':('01','Nature / Science / Cell 正刊','三本正刊中的心智、认知与行为研究。'),
  'family':('02','Nature / Science / Cell 系列期刊','按具体刊名整理，连接计算模型与人的行为证据。'),
  'ai':('03','人工智能会议与期刊','将会议和期刊放在一起，关注可实现的建模方法。'),
+ 'arxiv':('04','arXiv / 预印本','收录 arXiv 版本；未独立核验的期刊或会议发表状态不作认定。'),
 }
+GROUP_LABELS={'main':'NSC 正刊','family':'NSC 系列期刊','ai':'AI 会议与期刊','arxiv':'arXiv / 预印本'}
 TOPICS={'emotion':'情感与共情','mind':'心智与信念','intent':'意图与目标','world':'人的世界模型','person':'人格与心理状态','cognition':'认知与决策'}
 JOURNALS={
  'Nature':'0028-0836','Science':'0036-8075','Cell':'0092-8674',
@@ -24,9 +26,10 @@ AI_JOURNALS={'Journal of Artificial Intelligence Research','Journal of Machine L
 
 def classify(venue):
     name=re.sub(r'\s+',' ',venue).strip()
+    if name=='arXiv':return 'arxiv'
     if name in ('Nature','Science','Cell'):return 'main'
     if name in JOURNALS:return 'family'
-    if name in AI_JOURNALS or re.fullmatch(r'(?:Findings of )?(?:ACL|EMNLP|NAACL|EACL|COLING|TACL|ICML|ICLR|NeurIPS|AAAI|IJCAI|AISTATS|CVPR|ICCV|ECCV)(?: \d{4})?',name):return 'ai'
+    if name in AI_JOURNALS or re.fullmatch(r'(?:Findings of )?(?:ACL|EMNLP|NAACL|EACL|COLING|TACL|ICML|ICLR|NeurIPS|AAAI|IJCAI|AISTATS|CVPR|ICCV|ECCV|AAMAS|CHI|UIST|HRI|CogSci)(?: \d{4})?',name):return 'ai'
     return None
 
 def validate_library(data):
@@ -36,7 +39,7 @@ def validate_library(data):
     for p in data['papers']:
         assert p['group'] in GROUPS and classify(p['venue'])==p['group'], 'Incorrect publication group: '+p['venue']
         assert p['topic'] in TOPICS
-        assert p['status']=='published', 'Only verified conference / journal publications'
+        assert p['status']==('preprint' if p['group']=='arxiv' else 'published'), 'Publication status and source group disagree'
         assert date_floor(p['published'])<=dt.date.fromisoformat(data['updated'])
         dt.date.fromisoformat(p['added'])
         for k in ('title','venue','authors',*FIELDS):assert isinstance(p.get(k),str) and p[k].strip(), 'Missing '+k

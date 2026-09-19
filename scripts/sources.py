@@ -95,7 +95,7 @@ def score(p,today):
     topical=len({m.group().lower() for m in TARGET.finditer(p['title'])})
     return 8*math.exp(-age/210)+min(topical,3)+(.7 if p['status']=='published' else 0)+min(math.log1p(p.get('citations',0)),2)/2
 
-def acl_xml(content,today):
+def acl_xml(content,today,predicate=eligible):
     root=ET.fromstring(content);out=[]
     months={name:i for i,name in enumerate(['January','February','March','April','May','June','July','August','September','October','November','December'],1)}
     for vol in root.findall('volume'):
@@ -114,15 +114,15 @@ def acl_xml(content,today):
             url=f'https://aclanthology.org/{identity}/'
             p={'title':xt(paper.find('title')),'_abstract':xt(paper.find('abstract')),'doi':xt(paper.find('doi')),'url':url,'pdf':f'https://aclanthology.org/{identity}.pdf','venue':venue,'published':published,'authors':authors,'status':'published','metadata_source':'ACL Anthology','summary_source':url}
             if paper.find('retraction') is not None or paper.find('withdrawal') is not None:continue
-            if eligible(p,today):out.append(p)
+            if predicate(p,today):out.append(p)
     return out
 
-def get_acl(year,venue,today):
+def get_acl(year,venue,today,predicate=eligible):
     url=f'https://raw.githubusercontent.com/acl-org/acl-anthology/master/data/xml/{year}.{venue}.xml'
     try:content=fetch(url)
     except (OSError,urllib.error.URLError):
         content=fetch(f'https://api.github.com/repos/acl-org/acl-anthology/contents/data/xml/{year}.{venue}.xml')
-    return acl_xml(content,today)
+    return acl_xml(content,today,predicate)
 
 def get_crossref(query,today):
     params={'query.title':query,'filter':f'from-pub-date:{today-dt.timedelta(days=730)},until-pub-date:{today}','rows':80,

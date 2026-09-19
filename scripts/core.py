@@ -24,6 +24,7 @@ def doi_key(value):
 
 def keys(p):
     result = {'title:'+title_key(p['title'])}
+    result |= {'title:'+title_key(title) for title in p.get('title_aliases',[]) if title}
     if p.get('title_zh'): result.add('title:'+title_key(p['title_zh']))
     for doi in [p.get('doi',''), *p.get('doi_aliases',[])]:
         if doi: result.add('doi:'+doi_key(doi))

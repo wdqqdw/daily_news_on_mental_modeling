@@ -2,7 +2,7 @@
 from html.parser import HTMLParser
 from urllib.parse import urlsplit,unquote
 from core import SITE,NAME
-from library_core import load_library
+from library_core import load_library,GROUPS
 
 class Document(HTMLParser):
     def __init__(self):super().__init__();self.links=[];self.ids=set();self.papers=0;self.titles=0
@@ -26,7 +26,7 @@ def check():
             library=load_library()
             assert doc.papers==len(library['papers'])
             assert {p['id'] for p in library['papers']} <= doc.ids
-            assert {'section-main','section-family','section-ai','read-count','unread-count'} <= doc.ids
+            assert {'section-'+key for key in GROUPS} | {'read-count','unread-count'} <= doc.ids
         elif path.name!='archive.html':assert doc.papers==3
     assert (SITE/'index.html').resolve() in docs and (SITE/'archive.html').resolve() in docs
     for path,doc in docs.items():
