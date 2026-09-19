@@ -7,7 +7,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-import core,build,sources,summarize,update
+import core,sources,summarize,update
+import build_digest as build
 from summarize import valid_brief,normalize_brief
 
 class PipelineTests(unittest.TestCase):

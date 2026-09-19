@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-09-20T00:50:51+08:00",
+  "mode": "curated-initial",
+  "added_count": 30,
+  "total_count": 30,
+  "reviewed_count": 30,
+  "review_errors": 0,
+  "successful_sources": [
+    "Crossref verified publication metadata",
+    "Publisher and official conference paper pages"
+  ],
+  "unavailable_sources": []
+}

@@ -8,7 +8,7 @@ from zoneinfo import ZoneInfo
 from core import ROOT,DATA,history,keys,assert_unseen,validate,save_json
 from sources import collect,score
 from summarize import local_model,assess,summarize,MODEL_REPO
-from build import build
+from build_digest import build
 
 def ranked_candidates(pool,seen,today):
     remaining=[p for p in pool if not keys(p)&seen]

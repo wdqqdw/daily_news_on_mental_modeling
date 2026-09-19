@@ -1,4 +1,4 @@
-name: Mental Modeling · daily papers
+name: Mental Modeling · research library
 
 on:
   schedule:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       verify_sources:
-        description: 'Verify real discovery and Chinese method briefs without publishing a new issue'
+        description: 'Verify discovery and Chinese research notes without changing the library'
         type: boolean
         default: false
 
@@ -47,16 +47,16 @@ jobs:
         with:
           path: .cache/summary
           key: summary-ubuntu-b10995-qwen25-7b-q4-v1
-      - name: Verify live daily pipeline
+      - name: Verify live library collection
         if: github.event_name == 'workflow_dispatch' && inputs.verify_sources
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/update.py --dry-run --output .cache/verified-issue.json
-      - name: Generate today's three papers
+        run: python scripts/update_library.py --dry-run --output .cache/verified-library.json
+      - name: Collect and append relevant papers
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.verify_sources)
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/update.py
+        run: python scripts/update_library.py
       - name: Build and validate site
         run: |
           python scripts/build.py
@@ -66,19 +66,19 @@ jobs:
         with:
           name: pipeline-verification
           path: |
-            .cache/verified-issue.json
+            .cache/verified-library.json
             .cache/source-report.json
-            .cache/selection-review.json
-            .cache/preview.json
+            .cache/library-review.json
+            .cache/library-preview.json
             .cache/summary/server.log
           retention-days: 3
-      - name: Save immutable issue and permanent history
+      - name: Save cumulative library and collection status
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/issues data/history.json site/index.html site/archive.html site/archive site/.nojekyll
+          git add data/library.json data/collection_status.json site/index.html site/collection-status.json site/.nojekyll
           if ! git diff --cached --quiet; then
-            git commit -m "chore: publish mental modeling edition $(TZ=Asia/Shanghai date +%F)"
+            git commit -m "chore: collect mental modeling papers $(TZ=Asia/Shanghai date +%F)"
             git push origin HEAD:main
           fi
       - uses: actions/configure-pages@v5
