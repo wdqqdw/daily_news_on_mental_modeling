@@ -140,6 +140,13 @@ def get_arxiv(terms, today, lane='recent', start=0):
                 with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':AGENT}),timeout=40) as response:
                     content = response.read(12_000_000).decode()
                 break
+            except urllib.error.HTTPError as ex:
+                if ex.code not in (408, 429, 500, 502, 503, 504):
+                    detail = clean(ex.read(2000).decode('utf-8', errors='replace'))
+                    raise RuntimeError(f'arXiv HTTP {ex.code}: {detail[:500]}') from ex
+                if attempt==2:
+                    raise
+                time.sleep(4*(attempt+1))
             except (OSError, urllib.error.URLError):
                 if attempt==2:
                     raise
@@ -152,7 +159,6 @@ def collect(today, state=None):
     state = copy.deepcopy(state or {'version':1,'pages':{},'reviews':{}})
     pages = state.setdefault('pages', {}); tasks = []; date_index = today.toordinal()
     themes = list(ARXIV_THEMES); cutoff = today-dt.timedelta(days=365)
-    # Keep Boolean queries short: long combined queries can receive HTTP 406.
     # Search every recent theme, plus three independently paged historical topics.
     for theme in themes:
         tasks.append(('arXiv recent '+theme,get_arxiv,(ARXIV_THEMES[theme],today,'recent',0),'recent',None))
@@ -191,7 +197,7 @@ def collect(today, state=None):
             except Exception as ex:
                 if isinstance(ex,urllib.error.HTTPError) and ex.code==404 and name.startswith('ACL: '):
                     not_available.append(name);continue
-                errors.append(name+': '+str(ex)[:160]);print('Source unavailable: '+errors[-1],flush=True)
+                errors.append(name+': '+str(ex)[:600]);print('Source unavailable: '+errors[-1],flush=True)
     if not ok:
         raise RuntimeError('All sources failed; preserve published library')
     unique=[];seen=set()
