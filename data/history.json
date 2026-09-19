@@ -65,5 +65,38 @@
       "title:问题告诉你答案在哪里意图感知的长上下文kv缓存压缩",
       "url:https://aclanthology.org/2026.acl-long.1250"
     ]
+  },
+  {
+    "first_pushed": "2026-09-19",
+    "title": "Why Do Emotions Change? Appraisal-Guided Reasoning for Emotion–Cause Triplet Extraction in Conversations",
+    "url": "https://aclanthology.org/2026.acl-long.539/",
+    "keys": [
+      "doi:10.18653/v1/2026.acl-long.539",
+      "title:whydoemotionschangeappraisalguidedreasoningforemotioncausetripletextractioninconversations",
+      "title:情绪为何变化基于认知评价引导的对话中情绪原因三元组提取",
+      "url:https://aclanthology.org/2026.acl-long.539"
+    ]
+  },
+  {
+    "first_pushed": "2026-09-19",
+    "title": "PsyPath: Psychologically-guided Self-Exploration for Personality Detection",
+    "url": "https://aclanthology.org/2026.findings-acl.1088/",
+    "keys": [
+      "doi:10.18653/v1/2026.findings-acl.1088",
+      "title:psypathpsychologicallyguidedselfexplorationforpersonalitydetection",
+      "title:psypath基于心理引导的自我探索人格检测",
+      "url:https://aclanthology.org/2026.findings-acl.1088"
+    ]
+  },
+  {
+    "first_pushed": "2026-09-19",
+    "title": "ToM-Synth: Scaling Robust Theory of Mind in LLMs via 6,912 Structured Social Units",
+    "url": "https://aclanthology.org/2026.findings-acl.2113/",
+    "keys": [
+      "doi:10.18653/v1/2026.findings-acl.2113",
+      "title:tomsynthscalingrobusttheoryofmindinllmsvia6912structuredsocialunits",
+      "title:tomsynth通过6912结构化社会单元扩展llm的心智理论",
+      "url:https://aclanthology.org/2026.findings-acl.2113"
+    ]
   }
 ]
