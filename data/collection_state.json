@@ -1,1 +1,55 @@
-{"version":1,"pages":{},"reviews":{}}
+{
+  "version": 1,
+  "pages": {
+    "datacite:person": 60,
+    "datacite:cognition": 60,
+    "datacite:social": 60,
+    "crossref:0960-9822": 70,
+    "crossref:2211-1247": 70,
+    "crossref:1364-6613": 70,
+    "crossref-topic:emotion": 70,
+    "crossref-topic:mind": 70
+  },
+  "reviews": {
+    "paper-11c99c81ff6ac614": {
+      "reviewed_at": "2026-09-20",
+      "accepted": true,
+      "error": false
+    },
+    "paper-9de5baa35a45785a": {
+      "reviewed_at": "2026-09-20",
+      "accepted": true,
+      "error": false
+    },
+    "paper-e9339a3b4cb7531a": {
+      "reviewed_at": "2026-09-20",
+      "accepted": true,
+      "error": false
+    },
+    "paper-36e0fd6267883731": {
+      "reviewed_at": "2026-09-20",
+      "accepted": true,
+      "error": false
+    },
+    "paper-ba92376d2f907f1d": {
+      "reviewed_at": "2026-09-20",
+      "accepted": true,
+      "error": false
+    },
+    "paper-507d8074c2e17d6a": {
+      "reviewed_at": "2026-09-20",
+      "accepted": true,
+      "error": false
+    },
+    "paper-36d75ade04b09bf3": {
+      "reviewed_at": "2026-09-20",
+      "accepted": true,
+      "error": false
+    },
+    "paper-a5bbbb3754de4888": {
+      "reviewed_at": "2026-09-20",
+      "accepted": true,
+      "error": false
+    }
+  }
+}
