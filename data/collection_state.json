@@ -8,7 +8,14 @@
     "crossref:2211-1247": 70,
     "crossref:1364-6613": 70,
     "crossref-topic:emotion": 70,
-    "crossref-topic:mind": 70
+    "crossref-topic:mind": 140,
+    "datacite:world": 60,
+    "datacite:emotion": 60,
+    "datacite:mind": 60,
+    "crossref:0028-0836": 70,
+    "crossref:0036-8075": 70,
+    "crossref:0092-8674": 70,
+    "crossref-topic:person": 70
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -48,6 +55,46 @@
     },
     "paper-a5bbbb3754de4888": {
       "reviewed_at": "2026-09-20",
+      "accepted": true,
+      "error": false
+    },
+    "paper-3247c9d40835d579": {
+      "reviewed_at": "2026-09-21",
+      "accepted": true,
+      "error": false
+    },
+    "paper-bdf8020cb47c7787": {
+      "reviewed_at": "2026-09-21",
+      "accepted": true,
+      "error": false
+    },
+    "paper-11012bf6ba62299e": {
+      "reviewed_at": "2026-09-21",
+      "accepted": true,
+      "error": false
+    },
+    "paper-5ea70e90b2ed1cb5": {
+      "reviewed_at": "2026-09-21",
+      "accepted": true,
+      "error": false
+    },
+    "paper-d7a1ba32d29fc4c9": {
+      "reviewed_at": "2026-09-21",
+      "accepted": true,
+      "error": false
+    },
+    "paper-4dc6df7aebe42dad": {
+      "reviewed_at": "2026-09-21",
+      "accepted": true,
+      "error": false
+    },
+    "paper-5d823b98274812c8": {
+      "reviewed_at": "2026-09-21",
+      "accepted": true,
+      "error": false
+    },
+    "paper-fd6355e67055b3a4": {
+      "reviewed_at": "2026-09-21",
       "accepted": true,
       "error": false
     }
