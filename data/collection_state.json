@@ -1,9 +1,9 @@
 {
   "version": 1,
   "pages": {
-    "datacite:person": 60,
-    "datacite:cognition": 60,
-    "datacite:social": 60,
+    "datacite:person": 0,
+    "datacite:cognition": 120,
+    "datacite:social": 120,
     "crossref:0960-9822": 70,
     "crossref:2211-1247": 70,
     "crossref:1364-6613": 70,
@@ -15,7 +15,11 @@
     "crossref:0028-0836": 70,
     "crossref:0036-8075": 70,
     "crossref:0092-8674": 70,
-    "crossref-topic:person": 70
+    "crossref-topic:person": 140,
+    "crossref:2397-3374": 70,
+    "crossref:2522-5839": 70,
+    "crossref:1097-6256": 70,
+    "crossref-topic:cognition": 70
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -95,6 +99,46 @@
     },
     "paper-fd6355e67055b3a4": {
       "reviewed_at": "2026-09-21",
+      "accepted": true,
+      "error": false
+    },
+    "paper-2af23d5cf3dbdef2": {
+      "reviewed_at": "2026-09-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-27c29aeaea272148": {
+      "reviewed_at": "2026-09-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-b19c20ecfbf2d1dd": {
+      "reviewed_at": "2026-09-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-40811850b4aba19d": {
+      "reviewed_at": "2026-09-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-aabb040bc0045687": {
+      "reviewed_at": "2026-09-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-3c20a1d8ae1c9175": {
+      "reviewed_at": "2026-09-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-62bddd9659ddd2d5": {
+      "reviewed_at": "2026-09-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-8c47343689f83a35": {
+      "reviewed_at": "2026-09-22",
       "accepted": true,
       "error": false
     }
