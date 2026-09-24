@@ -1,9 +1,9 @@
 {
   "version": 1,
   "pages": {
-    "datacite:person": 0,
-    "datacite:cognition": 120,
-    "datacite:social": 120,
+    "datacite:person": 60,
+    "datacite:cognition": 180,
+    "datacite:social": 180,
     "crossref:0960-9822": 70,
     "crossref:2211-1247": 70,
     "crossref:1364-6613": 70,
@@ -23,7 +23,11 @@
     "crossref:2041-1723": 70,
     "crossref:2731-9121": 70,
     "crossref:2045-2322": 70,
-    "crossref-topic:social": 70
+    "crossref-topic:social": 140,
+    "crossref:2375-2548": 70,
+    "crossref:2470-9476": 70,
+    "crossref:0896-6273": 70,
+    "crossref-topic:world": 70
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -183,6 +187,46 @@
     },
     "paper-cc0573494c189201": {
       "reviewed_at": "2026-09-23",
+      "accepted": true,
+      "error": false
+    },
+    "paper-65fc22a9e16b061f": {
+      "reviewed_at": "2026-09-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-ce902a221493afff": {
+      "reviewed_at": "2026-09-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-270866b5944c7bdb": {
+      "reviewed_at": "2026-09-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-07259e58ed957112": {
+      "reviewed_at": "2026-09-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-a64059fd9d3ddb8e": {
+      "reviewed_at": "2026-09-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-962fcbac5e8a7b02": {
+      "reviewed_at": "2026-09-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-c07efc101dab5027": {
+      "reviewed_at": "2026-09-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-69b975299f640e36": {
+      "reviewed_at": "2026-09-24",
       "accepted": true,
       "error": false
     }
