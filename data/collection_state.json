@@ -4,14 +4,14 @@
     "datacite:person": 60,
     "datacite:cognition": 180,
     "datacite:social": 180,
-    "crossref:0960-9822": 70,
-    "crossref:2211-1247": 70,
-    "crossref:1364-6613": 70,
-    "crossref-topic:emotion": 70,
+    "crossref:0960-9822": 140,
+    "crossref:2211-1247": 140,
+    "crossref:1364-6613": 140,
+    "crossref-topic:emotion": 140,
     "crossref-topic:mind": 140,
-    "datacite:world": 120,
-    "datacite:emotion": 120,
-    "datacite:mind": 120,
+    "datacite:world": 180,
+    "datacite:emotion": 180,
+    "datacite:mind": 180,
     "crossref:0028-0836": 70,
     "crossref:0036-8075": 70,
     "crossref:0092-8674": 70,
@@ -27,7 +27,7 @@
     "crossref:2375-2548": 70,
     "crossref:2470-9476": 70,
     "crossref:0896-6273": 70,
-    "crossref-topic:world": 70
+    "crossref-topic:world": 140
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -227,6 +227,51 @@
     },
     "paper-69b975299f640e36": {
       "reviewed_at": "2026-09-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-47bd0afa6f3549c6": {
+      "reviewed_at": "2026-09-25",
+      "accepted": true,
+      "error": false
+    },
+    "paper-dfc44b9fe6197278": {
+      "reviewed_at": "2026-09-25",
+      "accepted": true,
+      "error": false
+    },
+    "paper-35027362c2645da5": {
+      "reviewed_at": "2026-09-25",
+      "accepted": true,
+      "error": false
+    },
+    "paper-378a89f273110bf2": {
+      "reviewed_at": "2026-09-25",
+      "accepted": true,
+      "error": false
+    },
+    "paper-ec847dabe3568221": {
+      "reviewed_at": "2026-09-25",
+      "accepted": true,
+      "error": false
+    },
+    "paper-7f2abf61c7583f50": {
+      "reviewed_at": "2026-09-25",
+      "accepted": true,
+      "error": false
+    },
+    "paper-6f0e68e7c4cbb45c": {
+      "reviewed_at": "2026-09-25",
+      "accepted": false,
+      "error": false
+    },
+    "paper-593efc909d6033dc": {
+      "reviewed_at": "2026-09-25",
+      "accepted": true,
+      "error": true
+    },
+    "paper-6c704a2f7d45cde2": {
+      "reviewed_at": "2026-09-25",
       "accepted": true,
       "error": false
     }
