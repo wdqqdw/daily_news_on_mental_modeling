@@ -4,9 +4,9 @@
     "datacite:person": 60,
     "datacite:cognition": 300,
     "datacite:social": 300,
-    "crossref:0960-9822": 140,
-    "crossref:2211-1247": 140,
-    "crossref:1364-6613": 140,
+    "crossref:0960-9822": 210,
+    "crossref:2211-1247": 210,
+    "crossref:1364-6613": 210,
     "crossref-topic:emotion": 210,
     "crossref-topic:mind": 280,
     "datacite:world": 240,
@@ -23,14 +23,17 @@
     "crossref:2041-1723": 140,
     "crossref:2731-9121": 0,
     "crossref:2045-2322": 140,
-    "crossref-topic:social": 210,
+    "crossref-topic:social": 280,
     "crossref:2375-2548": 140,
     "crossref:2470-9476": 0,
     "crossref:0896-6273": 140,
-    "crossref-topic:world": 140,
+    "crossref-topic:world": 210,
     "arxiv:world": 60,
     "arxiv:emotion": 60,
-    "arxiv:mind": 60
+    "arxiv:mind": 60,
+    "arxiv:person": 60,
+    "arxiv:cognition": 60,
+    "arxiv:social": 60
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -269,7 +272,7 @@
       "error": false
     },
     "paper-593efc909d6033dc": {
-      "reviewed_at": "2026-09-25",
+      "reviewed_at": "2026-09-30",
       "accepted": true,
       "error": true
     },
@@ -437,6 +440,41 @@
       "reviewed_at": "2026-09-29",
       "accepted": true,
       "error": true
+    },
+    "paper-f0e09146a3bf4f54": {
+      "reviewed_at": "2026-09-30",
+      "accepted": true,
+      "error": false
+    },
+    "paper-deee03e699e455f4": {
+      "reviewed_at": "2026-09-30",
+      "accepted": true,
+      "error": false
+    },
+    "paper-889dd963f68aabd4": {
+      "reviewed_at": "2026-09-30",
+      "accepted": true,
+      "error": false
+    },
+    "paper-16bffe9156ea5740": {
+      "reviewed_at": "2026-09-30",
+      "accepted": true,
+      "error": false
+    },
+    "paper-44bfe3562bd6e328": {
+      "reviewed_at": "2026-09-30",
+      "accepted": true,
+      "error": false
+    },
+    "paper-3fc1ea941b5cc472": {
+      "reviewed_at": "2026-09-30",
+      "accepted": true,
+      "error": true
+    },
+    "paper-036d16b1b242048b": {
+      "reviewed_at": "2026-09-30",
+      "accepted": true,
+      "error": false
     }
   }
 }
