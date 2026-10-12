@@ -16,24 +16,24 @@
     "crossref:0036-8075": 350,
     "crossref:0092-8674": 350,
     "crossref-topic:person": 560,
-    "crossref:2397-3374": 280,
-    "crossref:2522-5839": 70,
-    "crossref:1097-6256": 280,
+    "crossref:2397-3374": 350,
+    "crossref:2522-5839": 140,
+    "crossref:1097-6256": 350,
     "crossref-topic:cognition": 560,
     "crossref:2041-1723": 280,
     "crossref:2731-9121": 0,
     "crossref:2045-2322": 280,
-    "crossref-topic:social": 490,
+    "crossref-topic:social": 560,
     "crossref:2375-2548": 280,
     "crossref:2470-9476": 0,
     "crossref:0896-6273": 280,
-    "crossref-topic:world": 420,
+    "crossref-topic:world": 490,
     "arxiv:world": 420,
     "arxiv:emotion": 420,
     "arxiv:mind": 420,
-    "arxiv:person": 300,
-    "arxiv:cognition": 300,
-    "arxiv:social": 300
+    "arxiv:person": 360,
+    "arxiv:cognition": 360,
+    "arxiv:social": 360
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -938,6 +938,46 @@
     },
     "paper-a3f6d6ac085b5545": {
       "reviewed_at": "2026-10-11",
+      "accepted": true,
+      "error": false
+    },
+    "paper-c831acf81e61f7d7": {
+      "reviewed_at": "2026-10-12",
+      "accepted": true,
+      "error": false
+    },
+    "paper-ec0b06c425b92800": {
+      "reviewed_at": "2026-10-12",
+      "accepted": true,
+      "error": true
+    },
+    "paper-a9293106120055bc": {
+      "reviewed_at": "2026-10-12",
+      "accepted": true,
+      "error": false
+    },
+    "paper-67d489f6dc587476": {
+      "reviewed_at": "2026-10-12",
+      "accepted": true,
+      "error": false
+    },
+    "paper-7ae57cd847658cb7": {
+      "reviewed_at": "2026-10-12",
+      "accepted": true,
+      "error": false
+    },
+    "paper-6199be15983fbc1c": {
+      "reviewed_at": "2026-10-12",
+      "accepted": true,
+      "error": false
+    },
+    "paper-3f8fe200f563c745": {
+      "reviewed_at": "2026-10-12",
+      "accepted": true,
+      "error": false
+    },
+    "paper-44291a59954773a8": {
+      "reviewed_at": "2026-10-12",
       "accepted": true,
       "error": false
     }
