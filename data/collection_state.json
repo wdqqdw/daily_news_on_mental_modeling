@@ -7,7 +7,7 @@
     "crossref:0960-9822": 420,
     "crossref:2211-1247": 420,
     "crossref:1364-6613": 420,
-    "crossref-topic:emotion": 630,
+    "crossref-topic:emotion": 700,
     "crossref-topic:mind": 700,
     "datacite:world": 240,
     "datacite:emotion": 300,
@@ -24,13 +24,13 @@
     "crossref:2731-9121": 0,
     "crossref:2045-2322": 420,
     "crossref-topic:social": 700,
-    "crossref:2375-2548": 350,
-    "crossref:2470-9476": 70,
-    "crossref:0896-6273": 350,
-    "crossref-topic:world": 630,
-    "arxiv:world": 120,
-    "arxiv:emotion": 540,
-    "arxiv:mind": 540,
+    "crossref:2375-2548": 420,
+    "crossref:2470-9476": 0,
+    "crossref:0896-6273": 420,
+    "crossref-topic:world": 700,
+    "arxiv:world": 180,
+    "arxiv:emotion": 600,
+    "arxiv:mind": 600,
     "arxiv:person": 540,
     "arxiv:cognition": 540,
     "arxiv:social": 120
@@ -437,7 +437,7 @@
       "error": false
     },
     "paper-92ff18dfc6bdc157": {
-      "reviewed_at": "2026-10-09",
+      "reviewed_at": "2026-10-19",
       "accepted": true,
       "error": true
     },
@@ -1233,6 +1233,41 @@
     },
     "paper-fd50426e3bafcbc2": {
       "reviewed_at": "2026-10-18",
+      "accepted": true,
+      "error": false
+    },
+    "paper-f5d353a059eb8753": {
+      "reviewed_at": "2026-10-19",
+      "accepted": true,
+      "error": false
+    },
+    "paper-bbfbe0833e2a44d5": {
+      "reviewed_at": "2026-10-19",
+      "accepted": true,
+      "error": false
+    },
+    "paper-b188943e2483d4e7": {
+      "reviewed_at": "2026-10-19",
+      "accepted": true,
+      "error": false
+    },
+    "paper-0fd517132e942184": {
+      "reviewed_at": "2026-10-19",
+      "accepted": true,
+      "error": false
+    },
+    "paper-d3d98b3bb1b169e4": {
+      "reviewed_at": "2026-10-19",
+      "accepted": true,
+      "error": false
+    },
+    "paper-5bd713780a5fede3": {
+      "reviewed_at": "2026-10-19",
+      "accepted": true,
+      "error": false
+    },
+    "paper-d0293aa726636049": {
+      "reviewed_at": "2026-10-19",
       "accepted": true,
       "error": false
     }
