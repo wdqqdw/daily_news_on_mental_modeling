@@ -15,11 +15,11 @@
     "crossref:0028-0836": 490,
     "crossref:0036-8075": 490,
     "crossref:0092-8674": 490,
-    "crossref-topic:person": 770,
-    "crossref:2397-3374": 420,
-    "crossref:2522-5839": 0,
-    "crossref:1097-6256": 420,
-    "crossref-topic:cognition": 700,
+    "crossref-topic:person": 840,
+    "crossref:2397-3374": 490,
+    "crossref:2522-5839": 70,
+    "crossref:1097-6256": 490,
+    "crossref-topic:cognition": 770,
     "crossref:2041-1723": 420,
     "crossref:2731-9121": 0,
     "crossref:2045-2322": 420,
@@ -31,9 +31,9 @@
     "arxiv:world": 240,
     "arxiv:emotion": 660,
     "arxiv:mind": 660,
-    "arxiv:person": 600,
-    "arxiv:cognition": 600,
-    "arxiv:social": 180
+    "arxiv:person": 0,
+    "arxiv:cognition": 660,
+    "arxiv:social": 240
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -1348,6 +1348,46 @@
     },
     "paper-b2a36e3d5d027b8e": {
       "reviewed_at": "2026-10-21",
+      "accepted": true,
+      "error": false
+    },
+    "paper-b68b7041b22e73b8": {
+      "reviewed_at": "2026-10-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-3fc81dbb2808f8c6": {
+      "reviewed_at": "2026-10-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-e3b812acba6c1132": {
+      "reviewed_at": "2026-10-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-1e715ffe0b2ddefb": {
+      "reviewed_at": "2026-10-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-e36dac003cb3e99f": {
+      "reviewed_at": "2026-10-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-14fdd96437aa4373": {
+      "reviewed_at": "2026-10-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-d38fa9e46e1078c9": {
+      "reviewed_at": "2026-10-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-f7abb5e26982717b": {
+      "reviewed_at": "2026-10-22",
       "accepted": true,
       "error": false
     }
