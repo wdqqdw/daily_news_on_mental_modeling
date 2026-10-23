@@ -19,18 +19,18 @@
     "crossref:2397-3374": 490,
     "crossref:2522-5839": 70,
     "crossref:1097-6256": 490,
-    "crossref-topic:cognition": 770,
-    "crossref:2041-1723": 420,
-    "crossref:2731-9121": 0,
-    "crossref:2045-2322": 420,
-    "crossref-topic:social": 700,
+    "crossref-topic:cognition": 840,
+    "crossref:2041-1723": 490,
+    "crossref:2731-9121": 70,
+    "crossref:2045-2322": 490,
+    "crossref-topic:social": 770,
     "crossref:2375-2548": 420,
     "crossref:2470-9476": 0,
     "crossref:0896-6273": 420,
     "crossref-topic:world": 700,
-    "arxiv:world": 240,
-    "arxiv:emotion": 660,
-    "arxiv:mind": 660,
+    "arxiv:world": 300,
+    "arxiv:emotion": 720,
+    "arxiv:mind": 720,
     "arxiv:person": 0,
     "arxiv:cognition": 660,
     "arxiv:social": 240
@@ -1388,6 +1388,61 @@
     },
     "paper-f7abb5e26982717b": {
       "reviewed_at": "2026-10-22",
+      "accepted": true,
+      "error": false
+    },
+    "paper-df1396ed4765fe4a": {
+      "reviewed_at": "2026-10-23",
+      "accepted": true,
+      "error": false
+    },
+    "paper-718ac9b243e59382": {
+      "reviewed_at": "2026-10-23",
+      "accepted": true,
+      "error": false
+    },
+    "paper-c14b4131f5127ce9": {
+      "reviewed_at": "2026-10-23",
+      "accepted": true,
+      "error": false
+    },
+    "paper-cc56610327aa3142": {
+      "reviewed_at": "2026-10-23",
+      "accepted": true,
+      "error": false
+    },
+    "paper-7fc8cb278fc30ea4": {
+      "reviewed_at": "2026-10-23",
+      "accepted": false,
+      "error": false
+    },
+    "paper-54913b4751942a50": {
+      "reviewed_at": "2026-10-23",
+      "accepted": true,
+      "error": false
+    },
+    "paper-ec046fb87a0e64a2": {
+      "reviewed_at": "2026-10-23",
+      "accepted": false,
+      "error": false
+    },
+    "paper-21b84edf143423bd": {
+      "reviewed_at": "2026-10-23",
+      "accepted": true,
+      "error": false
+    },
+    "paper-40f32fd2dcd629ec": {
+      "reviewed_at": "2026-10-23",
+      "accepted": true,
+      "error": false
+    },
+    "paper-97c3414b45e9a156": {
+      "reviewed_at": "2026-10-23",
+      "accepted": false,
+      "error": false
+    },
+    "paper-ee1e44409b583d85": {
+      "reviewed_at": "2026-10-23",
       "accepted": true,
       "error": false
     }
