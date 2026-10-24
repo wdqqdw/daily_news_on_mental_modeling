@@ -23,17 +23,17 @@
     "crossref:2041-1723": 490,
     "crossref:2731-9121": 70,
     "crossref:2045-2322": 490,
-    "crossref-topic:social": 770,
-    "crossref:2375-2548": 420,
-    "crossref:2470-9476": 0,
-    "crossref:0896-6273": 420,
-    "crossref-topic:world": 700,
+    "crossref-topic:social": 840,
+    "crossref:2375-2548": 490,
+    "crossref:2470-9476": 70,
+    "crossref:0896-6273": 490,
+    "crossref-topic:world": 770,
     "arxiv:world": 300,
     "arxiv:emotion": 720,
     "arxiv:mind": 720,
-    "arxiv:person": 0,
-    "arxiv:cognition": 660,
-    "arxiv:social": 240
+    "arxiv:person": 60,
+    "arxiv:cognition": 720,
+    "arxiv:social": 300
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -437,7 +437,7 @@
       "error": false
     },
     "paper-92ff18dfc6bdc157": {
-      "reviewed_at": "2026-10-19",
+      "reviewed_at": "2026-10-24",
       "accepted": true,
       "error": true
     },
@@ -1443,6 +1443,41 @@
     },
     "paper-ee1e44409b583d85": {
       "reviewed_at": "2026-10-23",
+      "accepted": true,
+      "error": false
+    },
+    "paper-151ecf09ae320b78": {
+      "reviewed_at": "2026-10-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-76586577742c9b08": {
+      "reviewed_at": "2026-10-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-a36da18445b10c24": {
+      "reviewed_at": "2026-10-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-0490fd5096f9bf5e": {
+      "reviewed_at": "2026-10-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-5a3ceff820eebcac": {
+      "reviewed_at": "2026-10-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-af8864399b79b41f": {
+      "reviewed_at": "2026-10-24",
+      "accepted": true,
+      "error": false
+    },
+    "paper-acf0dd61ba16c70f": {
+      "reviewed_at": "2026-10-24",
       "accepted": true,
       "error": false
     }
