@@ -7,14 +7,14 @@
     "crossref:0960-9822": 560,
     "crossref:2211-1247": 560,
     "crossref:1364-6613": 560,
-    "crossref-topic:emotion": 840,
-    "crossref-topic:mind": 840,
+    "crossref-topic:emotion": 910,
+    "crossref-topic:mind": 910,
     "datacite:world": 240,
     "datacite:emotion": 300,
     "datacite:mind": 300,
-    "crossref:0028-0836": 490,
-    "crossref:0036-8075": 490,
-    "crossref:0092-8674": 490,
+    "crossref:0028-0836": 560,
+    "crossref:0036-8075": 560,
+    "crossref:0092-8674": 560,
     "crossref-topic:person": 840,
     "crossref:2397-3374": 490,
     "crossref:2522-5839": 70,
@@ -31,9 +31,9 @@
     "arxiv:world": 360,
     "arxiv:emotion": 780,
     "arxiv:mind": 780,
-    "arxiv:person": 60,
-    "arxiv:cognition": 720,
-    "arxiv:social": 300
+    "arxiv:person": 120,
+    "arxiv:cognition": 780,
+    "arxiv:social": 360
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -1513,6 +1513,46 @@
     },
     "paper-2b119bf13f0e7790": {
       "reviewed_at": "2026-10-25",
+      "accepted": true,
+      "error": false
+    },
+    "paper-74d0b0d9ccc6c867": {
+      "reviewed_at": "2026-10-26",
+      "accepted": true,
+      "error": false
+    },
+    "paper-efeed925c19a51d4": {
+      "reviewed_at": "2026-10-26",
+      "accepted": true,
+      "error": false
+    },
+    "paper-2ce34080097f4968": {
+      "reviewed_at": "2026-10-26",
+      "accepted": true,
+      "error": false
+    },
+    "paper-4845dee680529642": {
+      "reviewed_at": "2026-10-26",
+      "accepted": true,
+      "error": false
+    },
+    "paper-8f901173785c785e": {
+      "reviewed_at": "2026-10-26",
+      "accepted": true,
+      "error": false
+    },
+    "paper-c02258ad626729ff": {
+      "reviewed_at": "2026-10-26",
+      "accepted": true,
+      "error": false
+    },
+    "paper-0efba9864176d778": {
+      "reviewed_at": "2026-10-26",
+      "accepted": true,
+      "error": false
+    },
+    "paper-ffa02199743f66da": {
+      "reviewed_at": "2026-10-26",
       "accepted": true,
       "error": false
     }
