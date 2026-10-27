@@ -18,6 +18,9 @@ HUMAN = re.compile(r'\b(human|people|person|participants?|cogniti\w*|mental\w*|e
 SUBJECT = re.compile(TARGET.pattern + r'|cognitive map|relational memory|human learning|human reading|social navigation|hippocampus|hippocampal|world models?|generative agents|humanoid agents|social interaction|affect control|inverse planning|mental world|human simulation|human digital twin', re.I)
 CROSSREF_LOCK = threading.Lock()
 GENERAL_AI = re.compile(r'\b(deep[ -]learning|machine[ -]learning|neural[ -](?:networks?|operators?|fields?|representations?)|(?:large |protein |biological )?language models?|foundation models?|transformers?|diffusion models?|generative (?:AI|models?|learning)|reinforcement learning|artificial intelligence|self[ -]supervised|multi[ -]?agent AI)\b', re.I)
+# Broad recall only: the editorial review must verify a concrete deep-learning link.
+# Bare "neural", "learning", or "Bayesian" can describe biology or classical models.
+DEEP_LEARNING_CANDIDATE = re.compile(GENERAL_AI.pattern + r'|\b(?:LLMs?|MLLMs?|VLMs?|DNNs?|CNNs?|RNNs?|GNNs?|GANs?|VAEs?|LSTMs?|GPT[\w.-]*|LLaMA[\w.-]*|BERT|deep (?:networks?|neural|reinforcement)|(?:convolutional|recurrent|spiking) networks?|multilayer perceptrons?|autoencoders?|generative adversarial|connectionist)\b', re.I)
 AI_QUERY = 'deep learning neural network foundation model language generative transformer reinforcement'
 
 def general_ai_candidate(p):
@@ -37,7 +40,9 @@ def eligible(p, today):
     return (p.get('status') in ('published','preprint') and classify(p['venue']) is not None
             and age >= 0 and not BAD.search(p['title'])
             and not re.search(r'\b(?:correction|review|perspective|news)\b',p['title'],re.I)
-            and len(abstract.split()) >= 55 and (human_candidate(p) or general_ai_candidate(p)))
+            and len(abstract.split()) >= 55
+            and bool(DEEP_LEARNING_CANDIDATE.search(p['title']+' '+abstract))
+            and (human_candidate(p) or general_ai_candidate(p)))
 
 def normalize_venue(name):
     # Crossref names official proceedings differently from ACL's concise names.

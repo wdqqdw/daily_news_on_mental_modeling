@@ -51,7 +51,10 @@ class LibraryTests(unittest.TestCase):
 
     def test_failed_brief_keeps_other_valid_additions_without_quota(self):
         candidates = copy.deepcopy(self.data['papers'][:2])
-        review = {'accept': True, 'topic': 'cognition', 'kind': '计算方法', 'reason': '研究人的认知模型'}
+        evidence='We compare human cognition with deep neural network representations.'
+        for p in candidates:p['_abstract']=evidence
+        review = {'accept': True, 'topic': 'cognition', 'kind': '计算方法', 'reason': '研究人的认知模型',
+                  'deep_learning_related':True,'deep_learning_evidence':evidence}
         brief = {key: candidates[1][key] for key in FIELDS}
         with tempfile.TemporaryDirectory() as temp, patch.object(update, 'assess', return_value=review), patch.object(update, 'summarize', side_effect=[ValueError('invalid draft'), brief]):
             finished, audit = update.make_additions('model', candidates, self.today, Path(temp))
@@ -77,6 +80,8 @@ class LibraryTests(unittest.TestCase):
 
     def test_crossref_neural_evidence_and_date_precision(self):
         item = {'DOI': '10.1234/sample', 'type': 'journal-article', 'title': ['Human cognitive maps represent mental states'], 'container-title': ['Nature Neuroscience'], 'published': {'date-parts': [[2026, 8]]}, 'abstract': 'Participants represent beliefs in neural cognitive maps. ' + 'Observed brain responses support representations of human mental states. ' * 8}
+        self.assertEqual(sources.crossref_rows([item], self.today), [])
+        item['abstract']+='We compare these representations with deep neural networks.'
         papers = sources.crossref_rows([item], self.today)
         self.assertEqual(len(papers), 1)
         self.assertEqual(papers[0]['published'], '2026-08')
@@ -85,7 +90,7 @@ class LibraryTests(unittest.TestCase):
 
     def test_historical_papers_have_no_two_year_cutoff(self):
         p=copy.deepcopy(self.data['papers'][0]);p['published']='1998'
-        p['_abstract']='This computational model explains human cognition and mental states. '*10
+        p['_abstract']='This artificial neural network model explains human cognition and mental states. '*10
         self.assertTrue(sources.eligible(p,self.today))
         p['published']='2099'
         self.assertFalse(sources.eligible(p,self.today))
@@ -99,6 +104,41 @@ class LibraryTests(unittest.TestCase):
             self.assertFalse(sources.eligible({**p,'venue':venue},self.today),venue)
         self.assertFalse(sources.eligible({**p,'venue':'Nature','published':'2099'},self.today))
         self.assertFalse(sources.eligible({**p,'venue':'Nature','title':'Author Correction: Efficient language models'},self.today))
+
+    def test_biological_neural_and_classical_models_are_not_deep_learning(self):
+        p={'title':'Modeling human emotional beliefs','published':'2025-03-01','status':'published'}
+        for venue in ('Nature','Nature Neuroscience','ICML 2025','arXiv'):
+            p.update(venue=venue,status='preprint' if venue=='arXiv' else 'published')
+            for abstract in ('Human neural activity explains emotional learning and beliefs. ',
+                             'We fit Bayesian models and statistical regressions to human beliefs. '):
+                self.assertFalse(sources.eligible({**p,'_abstract':abstract*10},self.today),venue)
+            for abstract in ('We use LLM agents to simulate human emotional beliefs. ',
+                             'We compare human beliefs with CNN representations in behavioral experiments. ',
+                             'We compare human emotional learning with multilayer perceptrons in behavioral experiments. '):
+                self.assertTrue(sources.eligible({**p,'_abstract':abstract*10},self.today),venue)
+
+    def test_missing_or_invented_deep_learning_evidence_cannot_be_admitted(self):
+        p=copy.deepcopy(self.data['papers'][0])
+        p['_abstract']='We compare human cognition with deep neural network representations.'
+        review={'accept':True,'topic':'cognition','kind':'计算方法','reason':'模型比较',
+                'deep_learning_related':True,'deep_learning_evidence':p['_abstract']}
+        for changes in ({'deep_learning_related':None},{'deep_learning_evidence':''},
+                        {'deep_learning_evidence':'We train an unrelated transformer for behavior prediction.'}):
+            with self.subTest(changes=changes),tempfile.TemporaryDirectory() as temp, \
+                 patch.object(update,'assess',return_value={**review,**changes}),patch.object(update,'summarize') as summarizer:
+                with self.assertRaises(RuntimeError):update.make_additions('model',[p],self.today,Path(temp))
+                summarizer.assert_not_called()
+        self.assertTrue(update.verify_deep_learning_link(review,p))
+
+    def test_no_deep_learning_link_is_normal_rejection_even_for_nsc(self):
+        p=copy.deepcopy(self.data['papers'][0])
+        p['_abstract']='A questionnaire study of human emotional responses. Deep learning may inspire future work.'
+        review={'accept':True,'topic':'emotion','kind':'表征与行为证据','reason':'仅有未来工作的泛泛联系',
+                'deep_learning_related':False,'deep_learning_evidence':''}
+        with tempfile.TemporaryDirectory() as temp,patch.object(update,'assess',return_value=review),patch.object(update,'summarize') as summarizer:
+            finished,audit=update.make_additions('model',[p],self.today,Path(temp))
+        self.assertEqual(finished,[]);self.assertFalse(audit[0]['accept']);self.assertNotIn('error',audit[0])
+        summarizer.assert_not_called()
 
     def test_recent_ai_gets_newest_first_without_displacing_history_and_mind(self):
         pool=[]
@@ -139,7 +179,7 @@ class LibraryTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):update.validate_source_coverage(report)
 
     def test_arxiv_metadata_preserves_status_and_versions(self):
-        xml='''<feed xmlns="http://www.w3.org/2005/Atom" xmlns:x="http://arxiv.org/schemas/atom"><entry><id>http://arxiv.org/abs/1306.5279v2</id><title>Emotion modeling for human interaction</title><published>2013-06-22T00:00:00Z</published><author><name>Researcher</name></author><x:doi>10.1234/formal</x:doi><x:journal_ref>Nature 2026</x:journal_ref><summary>'''+'We model human emotional states and predict social behavior. '*10+'''</summary></entry></feed>'''
+        xml='''<feed xmlns="http://www.w3.org/2005/Atom" xmlns:x="http://arxiv.org/schemas/atom"><entry><id>http://arxiv.org/abs/1306.5279v2</id><title>Emotion modeling for human interaction</title><published>2013-06-22T00:00:00Z</published><author><name>Researcher</name></author><x:doi>10.1234/formal</x:doi><x:journal_ref>Nature 2026</x:journal_ref><summary>'''+'We use deep neural networks to model human emotional states and predict social behavior. '*10+'''</summary></entry></feed>'''
         rows,_=sources.arxiv_rows(xml,self.today)
         self.assertEqual(rows[0]['arxiv_id'],'1306.5279')
         self.assertEqual(rows[0]['status'],'preprint')
@@ -194,7 +234,7 @@ class LibraryTests(unittest.TestCase):
     def test_datacite_arxiv_uses_first_submission_not_doi_registration(self):
         item={'attributes':{'doi':'10.48550/arxiv.1306.5279','state':'findable','url':'https://arxiv.org/abs/1306.5279',
             'titles':[{'title':'Emotion modeling for human social interaction'}],
-            'descriptions':[{'descriptionType':'Abstract','description':'We model human emotional states and predict social behavior. '*10}],
+            'descriptions':[{'descriptionType':'Abstract','description':'We use deep neural networks to model human emotional states and predict social behavior. '*10}],
             'publicationYear':2013,'created':'2026-09-20T00:00:00Z',
             'dates':[{'dateType':'Submitted','date':'2015-01-01'},{'dateType':'Submitted','date':'2013-06-22T01:02:03Z'}],
             'relatedIdentifiers':[{'relatedIdentifierType':'DOI','relationType':'IsVersionOf','relatedIdentifier':'10.1234/formal'},
