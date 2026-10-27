@@ -44,10 +44,19 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(p['published'],'2026-07');self.assertEqual(p['title'],'LLM Emotional Appraisal');self.assertEqual(p['url'],'https://aclanthology.org/2026.acl-long.1/')
     def test_brief_requires_every_method_field(self):
         good={f:'中文说明用于研究人的情绪信念和内在心理状态。'*2 for f in core.FIELDS}
+        good['summary']='研究结合行为观察与计算模型，分析人如何根据情境变化推断他人的情绪和信念。'*6
         self.assertTrue(valid_brief(good));good['method']=''
+        self.assertFalse(valid_brief(good))
+    def test_summary_requires_expanded_overview_without_unbounded_length(self):
+        good={f:'中文说明用于研究人的情绪信念和内在心理状态。'*2 for f in core.FIELDS}
+        self.assertFalse(valid_brief(good))
+        good['summary']='研究结合行为观察与计算模型，分析人如何根据情境变化推断他人的情绪和信念。'*6
+        self.assertTrue(valid_brief(good))
+        good['summary']+='超过摘要长度的重复文字。'*10
         self.assertFalse(valid_brief(good))
     def test_invalid_brief_is_repaired_with_source_and_field_feedback(self):
         good={f:'中文说明用于研究人的情绪信念和内在心理状态。'*2 for f in core.FIELDS}
+        good['summary']='研究结合行为观察与计算模型，分析人如何根据情境变化推断他人的情绪和信念。'*6
         bad={**good,'target':'人格'}
         p={'title':'PsyPath','_abstract':'We propose a model of human personality.'}
         with patch.object(summarize,'request',side_effect=[good,bad,good]) as request:
