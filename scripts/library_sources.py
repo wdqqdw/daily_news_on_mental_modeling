@@ -11,12 +11,22 @@ import time
 import urllib.error
 import urllib.parse
 from core import date_floor, keys
-from library_core import JOURNALS, classify
+from library_core import JOURNALS, NSC_AI_JOURNALS, allows_general_ai, classify
 from sources import fetch, clean, get_acl, BAD, TARGET, off_scope_reason, topic, score, AGENT
 
 HUMAN = re.compile(r'\b(human|people|person|participants?|cogniti\w*|mental\w*|emoti\w*|empath\w*|belief\w*|intent\w*|social|hippocamp\w*|brain|concept\w* learning)\b', re.I)
 SUBJECT = re.compile(TARGET.pattern + r'|cognitive map|relational memory|human learning|human reading|social navigation|hippocampus|hippocampal|world models?|generative agents|humanoid agents|social interaction|affect control|inverse planning|mental world|human simulation|human digital twin', re.I)
 CROSSREF_LOCK = threading.Lock()
+GENERAL_AI = re.compile(r'\b(deep[ -]learning|machine[ -]learning|neural[ -](?:networks?|operators?|fields?|representations?)|(?:large |protein |biological )?language models?|foundation models?|transformers?|diffusion models?|generative (?:AI|models?|learning)|reinforcement learning|artificial intelligence|self[ -]supervised|multi[ -]?agent AI)\b', re.I)
+AI_QUERY = 'deep learning neural network foundation model language generative transformer reinforcement'
+
+def general_ai_candidate(p):
+    return allows_general_ai(p.get('venue','')) and bool(GENERAL_AI.search(p['title']+' '+p.get('_abstract','')))
+
+def human_candidate(p):
+    abstract=p.get('_abstract','')
+    return (not off_scope_reason(p) and bool(SUBJECT.search(p['title']+' '+abstract[:700]))
+            and bool(HUMAN.search(p['title']+' '+abstract)))
 
 def eligible(p, today):
     abstract = p.get('_abstract', '')
@@ -25,9 +35,9 @@ def eligible(p, today):
     except (ValueError, KeyError):
         return False
     return (p.get('status') in ('published','preprint') and classify(p['venue']) is not None
-            and age >= 0 and not BAD.search(p['title']) and not off_scope_reason(p)
-            and len(abstract.split()) >= 55 and bool(SUBJECT.search(p['title'] + ' ' + abstract[:700]))
-            and bool(HUMAN.search(p['title'] + ' ' + abstract)))
+            and age >= 0 and not BAD.search(p['title'])
+            and not re.search(r'\b(?:correction|review|perspective|news)\b',p['title'],re.I)
+            and len(abstract.split()) >= 55 and (human_candidate(p) or general_ai_candidate(p)))
 
 def normalize_venue(name):
     # Crossref names official proceedings differently from ACL's concise names.
@@ -39,6 +49,8 @@ def crossref_rows(items, today):
     out = []
     for x in items:
         if x.get('type') not in ('journal-article', 'proceedings-article') or not x.get('DOI'):
+            continue
+        if set(x.get('_publication_types',[])) & {'Review','Editorial','Comment','News'}:
             continue
         if any(u.get('type') in ('retraction', 'withdrawal') for u in x.get('update-to', [])):
             continue
@@ -61,15 +73,18 @@ def crossref_rows(items, today):
              'published': min(dates, key=date_floor), 'status': 'published',
              'authors': (first.get('given', '') + ' ' + first.get('family', first.get('name', 'Authors in paper'))).strip() + (' et al.' if len(authors) > 1 else ''),
              'citations': x.get('is-referenced-by-count', 0), 'metadata_source': 'Crossref',
-             'summary_source': 'https://api.crossref.org/works/' + urllib.parse.quote(doi, safe='')}
+             'summary_source': x.get('_abstract_source') or 'https://api.crossref.org/works/' + urllib.parse.quote(doi, safe='')}
         if eligible(p, today):
             out.append(p)
     return out
 
-def crossref(query, today, issn=None, start_date=None, end_date=None, offset=0):
+def crossref(query, today, issn=None, start_date=None, end_date=None, offset=0, newest=False):
     params = {'query': query, 'filter': f'from-pub-date:{start_date or today-dt.timedelta(days=365)},until-pub-date:{end_date or today}',
               'rows': 70, 'offset': offset, 'select': 'DOI,title,author,container-title,published-online,published-print,published,issued,type,is-referenced-by-count,abstract,update-to'}
     endpoint = f'journals/{issn}/works' if issn else 'works'
+    if newest:
+        params['query.title']=params.pop('query')
+        params.update(sort='published',order='desc')
     # Pace this shared public API rather than fan out journal requests at once.
     with CROSSREF_LOCK:
         for attempt in range(3):
@@ -81,7 +96,53 @@ def crossref(query, today, issn=None, start_date=None, end_date=None, offset=0):
                     raise
                 time.sleep(5 * (attempt + 1))
         time.sleep(1.1)
-    return crossref_rows(data['message']['items'], today), int(data['message'].get('total-results',0))
+    items=data['message']['items']
+    if newest:
+        items=fill_ai_abstracts(items)
+    return crossref_rows(items, today), int(data['message'].get('total-results',0))
+
+def fill_ai_abstracts(items):
+    """Crossref often omits abstracts; use DOI-matched journal abstracts from Europe PMC."""
+    missing={x['DOI'].lower():x for x in items if x.get('DOI') and not x.get('abstract')
+             and GENERAL_AI.search(clean(' '.join(x.get('title',[]))))}
+    if not missing:return items
+    query=' OR '.join('DOI:"'+doi+'"' for doi in missing)
+    url='https://www.ebi.ac.uk/europepmc/webservices/rest/search?'+urllib.parse.urlencode(
+        {'query':query,'format':'json','resultType':'core','pageSize':100})
+    try:data=json.loads(fetch(url))
+    except (OSError,ValueError) as ex:
+        print('Optional Europe PMC abstract lookup unavailable: '+str(ex)[:160],flush=True)
+        data={}
+    for row in data.get('resultList',{}).get('result',[]):
+        match=missing.get(row.get('doi','').lower())
+        if match is not None and row.get('abstractText'):
+            match['abstract']=row['abstractText']
+            match['_abstract_source']='https://europepmc.org/article/'+row['source']+'/'+row['id']
+            match['_publication_types']=row.get('pubTypeList',{}).get('pubType',[])
+            first=row.get('firstPublicationDate','')
+            if re.fullmatch(r'\d{4}-\d{2}-\d{2}',first) and not match.get('published-online'):
+                match['published-online']={'date-parts':[[int(v) for v in first.split('-')]]}
+    # NMI and other methods journals may not be indexed by Europe PMC.
+    # Bounded public-abstract requests keep daily collection time predictable.
+    remaining=[x for doi,x in missing.items() if not x.get('abstract') and doi.startswith('10.1038/')][:3]
+    for x in remaining:
+        doi=x['DOI'].lower();url='https://www.nature.com/articles/'+doi.split('/',1)[1]
+        try:
+            req=urllib.request.Request(url,headers={'User-Agent':AGENT})
+            with urllib.request.urlopen(req,timeout=12) as response:page=response.read(2_000_000).decode('utf-8','replace')
+            abstract=nature_abstract(page,doi)
+            if abstract:
+                x['abstract']=abstract;x['_abstract_source']=url
+        except (OSError,ValueError) as ex:
+            print('Skip unavailable publisher abstract: '+doi+'; '+str(ex)[:120],flush=True)
+    return items
+
+def nature_abstract(page,doi):
+    if not re.search(r'<meta[^>]+name=["\']citation_doi["\'][^>]+content=["\']'+re.escape(doi)+r'["\']',page,re.I):return ''
+    section=re.search(r'<section[^>]*data-title="Abstract"[^>]*>(.*?)</section>',page,re.S)
+    if not section:return ''
+    # Never extract references, related papers, subscription notices or other sections.
+    return clean(section[1])
 
 # Complementary topic queries rotate through the older literature by relevance.
 ARXIV_THEMES = {
@@ -224,6 +285,8 @@ def collect(today, state=None):
     journal_items = list(JOURNALS.items())
     for name, issn in journal_items:
         tasks.append(('Journal recent: '+name,crossref,('emotion belief mental cognition human social world model intention',today,issn),'recent',None))
+        if name in NSC_AI_JOURNALS:
+            tasks.append(('Journal AI recent: '+name,crossref,(AI_QUERY,today,issn,str(today-dt.timedelta(days=180)),str(today),0,True),'recent',None))
     # Rotate journals and relevance pages, including papers far older than two years.
     for i in range(3):
         name, issn = journal_items[(date_index*3+i)%len(journal_items)]; key='crossref:'+issn
@@ -272,9 +335,11 @@ def collect(today, state=None):
             match['url_aliases']=sorted(set(match.get('url_aliases',[])+[p['url']]))
             seen|=identities;continue
         p['group']=classify(p['venue']);p['topic']=topic(p)
+        if general_ai_candidate(p) and not human_candidate(p):p['topic']='ai'
         if re.search(r'cogniti\w*|human learning|human reading|hippocamp\w*',p['title'],re.I) and p['topic']=='mind':p['topic']='cognition'
         unique.append(p);seen|=identities
     return unique,{'successful_sources':sorted(ok),'unavailable_sources':sorted(errors),'fallback_sources':sorted(fallbacks),'not_published_sources':sorted(not_available),
                   'candidate_count':len(unique),'recent_candidates':sum(p['_lane']=='recent' for p in unique),
                   'historical_candidates':sum(p['_lane']=='history' for p in unique),'search_mode':'recent-and-historical',
+                  'general_ai_search':'nsc-recent-180d','general_ai_candidates':sum(p['topic']=='ai' for p in unique),
                   '_next_state':state}

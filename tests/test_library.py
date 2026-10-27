@@ -90,6 +90,54 @@ class LibraryTests(unittest.TestCase):
         p['published']='2099'
         self.assertFalse(sources.eligible(p,self.today))
 
+    def test_general_ai_scope_is_limited_to_named_nsc_journals(self):
+        p={'title':'Efficient KV-cache compression for language models','published':'2026-09-01',
+           'status':'published','_abstract':'We propose a deep learning architecture for efficient language model inference with experimental validation. '*8}
+        for venue in ('Nature','Science','Cell','Nature Machine Intelligence','Nature Computational Science','Cell Systems','Cancer Cell'):
+            self.assertTrue(sources.eligible({**p,'venue':venue},self.today),venue)
+        for venue in ('arXiv','ICML 2026','Neuron','Scientific Reports','Communications Psychology','Nature Fake Journal','Science Fiction'):
+            self.assertFalse(sources.eligible({**p,'venue':venue},self.today),venue)
+        self.assertFalse(sources.eligible({**p,'venue':'Nature','published':'2099'},self.today))
+        self.assertFalse(sources.eligible({**p,'venue':'Nature','title':'Author Correction: Efficient language models'},self.today))
+
+    def test_recent_ai_gets_newest_first_without_displacing_history_and_mind(self):
+        pool=[]
+        for i,(t,date) in enumerate([('ai','2026-01-01'),('mind','2026-09-01'),('ai','2026-09-19'),('mind','2010')]):
+            p=copy.deepcopy(self.data['papers'][0]);p.update(title=f'Example model {i}',doi=f'10.1234/rank{i}',url=f'https://example.org/rank{i}',venue='Nature',group='main',topic=t,published=date)
+            pool.append(p)
+        ranked=update.rank(pool,set(),self.today)
+        self.assertEqual(ranked[0]['published'],'2026-09-19')
+        self.assertEqual(ranked[1]['_lane'],'history')
+        self.assertEqual(ranked[2]['topic'],'mind')
+
+    def test_abstract_fallback_requires_exact_doi(self):
+        rows=[{'DOI':'10.1234/a','title':['A deep learning model']}]
+        response={'resultList':{'result':[
+            {'doi':'10.1234/other','abstractText':'Wrong abstract','source':'MED','id':'1'},
+            {'doi':'10.1234/a','abstractText':'Correct abstract','source':'MED','id':'2','pubTypeList':{'pubType':['Journal Article']}}]}}
+        with patch.object(sources,'fetch',return_value=json.dumps(response)):
+            result=sources.fill_ai_abstracts(rows)
+        self.assertEqual(result[0]['abstract'],'Correct abstract')
+        self.assertEqual(result[0]['_abstract_source'],'https://europepmc.org/article/MED/2')
+
+    def test_publisher_fallback_does_not_read_related_papers(self):
+        page='<meta name="citation_doi" content="10.1038/test"><section data-title="Abstract"><p>Verified abstract.</p></section><section>Unrelated reference.</section>'
+        self.assertEqual(sources.nature_abstract(page,'10.1038/test'),'Verified abstract.')
+        self.assertEqual(sources.nature_abstract(page,'10.1038/other'),'')
+        self.assertEqual(sources.nature_abstract(page.replace('data-title="Abstract"','data-title="References"'),'10.1038/test'),'')
+
+    def test_new_ai_search_keeps_human_and_arxiv_channels(self):
+        calls=[]
+        def capture(*args,**kwargs):calls.append(args);return [],0
+        with patch.object(sources,'get_arxiv',return_value=([],0)),patch.object(sources,'crossref',side_effect=capture),patch.object(sources,'get_acl',return_value=[]):
+            _,report=sources.collect(self.today)
+        ai_calls=[c for c in calls if len(c)==7 and c[-1] is True]
+        self.assertEqual(len(ai_calls),len(lib.NSC_AI_JOURNALS))
+        self.assertTrue(all(c[3]==str(self.today-dt.timedelta(days=180)) for c in ai_calls))
+        update.validate_source_coverage(report)
+        report['successful_sources']=[s for s in report['successful_sources'] if not s.startswith('Journal AI recent:')]
+        with self.assertRaises(RuntimeError):update.validate_source_coverage(report)
+
     def test_arxiv_metadata_preserves_status_and_versions(self):
         xml='''<feed xmlns="http://www.w3.org/2005/Atom" xmlns:x="http://arxiv.org/schemas/atom"><entry><id>http://arxiv.org/abs/1306.5279v2</id><title>Emotion modeling for human interaction</title><published>2013-06-22T00:00:00Z</published><author><name>Researcher</name></author><x:doi>10.1234/formal</x:doi><x:journal_ref>Nature 2026</x:journal_ref><summary>'''+'We model human emotional states and predict social behavior. '*10+'''</summary></entry></feed>'''
         rows,_=sources.arxiv_rows(xml,self.today)
