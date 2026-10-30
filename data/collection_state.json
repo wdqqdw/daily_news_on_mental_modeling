@@ -23,23 +23,26 @@
     "crossref:2041-1723": 490,
     "crossref:2731-9121": 70,
     "crossref:2045-2322": 490,
-    "crossref-topic:social": 910,
+    "crossref-topic:social": 980,
     "crossref:2375-2548": 490,
     "crossref:2470-9476": 70,
     "crossref:0896-6273": 490,
-    "crossref-topic:world": 840,
+    "crossref-topic:world": 910,
     "arxiv:world": 0,
     "arxiv:emotion": 900,
     "arxiv:mind": 900,
-    "arxiv:person": 180,
-    "arxiv:cognition": 840,
-    "arxiv:social": 0,
+    "arxiv:person": 240,
+    "arxiv:cognition": 0,
+    "arxiv:social": 60,
     "crossref:1548-7105": 70,
     "crossref:1087-0156": 70,
     "crossref:2662-8457": 70,
     "crossref:2520-1131": 0,
     "crossref:1745-2473": 70,
-    "crossref:1078-8956": 70
+    "crossref:1078-8956": 70,
+    "crossref:2405-4712": 70,
+    "crossref:2666-979X": 70,
+    "crossref:1535-6108": 70
   },
   "reviews": {
     "paper-11c99c81ff6ac614": {
@@ -278,7 +281,7 @@
       "error": false
     },
     "paper-593efc909d6033dc": {
-      "reviewed_at": "2026-10-25",
+      "reviewed_at": "2026-10-30",
       "accepted": true,
       "error": true
     },
@@ -1716,6 +1719,56 @@
       "reviewed_at": "2026-10-29",
       "accepted": true,
       "error": true
+    },
+    "paper-1d7a7ce90a369d48": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": false
+    },
+    "paper-18eff91b8297ca9d": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": true
+    },
+    "paper-08dc77f35d1066c6": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": false
+    },
+    "paper-d46f7e5af6857ec5": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": true
+    },
+    "paper-b6266ecb9ee04c59": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": true
+    },
+    "paper-93d3db807c26a84f": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": true
+    },
+    "paper-b266a21e8541b5da": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": true
+    },
+    "paper-03578da41eb0a210": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": true
+    },
+    "paper-23659b9249164c09": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": true
+    },
+    "paper-801f34e812a2fea7": {
+      "reviewed_at": "2026-10-30",
+      "accepted": true,
+      "error": false
     }
   }
 }
