@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "papers": [
     {
       "title": "A foundation model to predict and capture human cognition",
@@ -2384,7 +2384,9 @@
       "url": "https://arxiv.org/abs/2608.12750",
       "pdf": "https://arxiv.org/pdf/2608.12750",
       "doi": "10.48550/arxiv.2608.12750",
-      "doi_aliases": [],
+      "doi_aliases": [
+        "10.18653/2026.findings-emnlp.1572"
+      ],
       "published": "2026-08-13",
       "authors": "Sabour, Sahand et al.",
       "venue": "arXiv",
@@ -5270,7 +5272,9 @@
       "url": "https://arxiv.org/abs/2609.03394",
       "pdf": "https://arxiv.org/pdf/2609.03394",
       "doi": "10.48550/arxiv.2609.03394",
-      "doi_aliases": [],
+      "doi_aliases": [
+        "10.18653/2026.emnlp-main.1031"
+      ],
       "published": "2026-09-03",
       "authors": "Bommana, Divyesh et al.",
       "venue": "arXiv",
@@ -5303,7 +5307,9 @@
       "url": "https://arxiv.org/abs/2609.25066",
       "pdf": "https://arxiv.org/pdf/2609.25066",
       "doi": "10.48550/arxiv.2609.25066",
-      "doi_aliases": [],
+      "doi_aliases": [
+        "10.18653/2026.emnlp-main.1269"
+      ],
       "published": "2026-09-16",
       "authors": "Wang, Pei et al.",
       "venue": "arXiv",
@@ -7505,7 +7511,9 @@
       "url": "https://arxiv.org/abs/2610.23157",
       "pdf": "https://arxiv.org/pdf/2610.23157",
       "doi": "10.48550/arXiv.2610.23157",
-      "doi_aliases": [],
+      "doi_aliases": [
+        "10.18653/2026.emnlp-main.2235"
+      ],
       "published": "2026-10-16",
       "authors": "Hikaru Asano et al.",
       "venue": "arXiv",
@@ -8799,7 +8807,10 @@
       "added_at": "2026-10-25T13:53:06+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-87e12b8086b7cced"
+      "id": "paper-87e12b8086b7cced",
+      "doi_aliases": [
+        "10.18653/2026.emnlp-main.1133"
+      ]
     },
     {
       "title": "EmpathicStories++: A Multimodal Dataset for Empathy Towards Personal Experiences",
@@ -8853,7 +8864,10 @@
       "added_at": "2026-10-25T13:59:44+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-0decec38cd5f5b0c"
+      "id": "paper-0decec38cd5f5b0c",
+      "doi_aliases": [
+        "10.18653/2026.emnlp-main.559"
+      ]
     },
     {
       "title": "BELIEFMEM: Belief-Revising Memory for Conversational LLM Agents",
@@ -8880,7 +8894,10 @@
       "added_at": "2026-10-25T14:06:47+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-7c9d398dfcaa7d4b"
+      "id": "paper-7c9d398dfcaa7d4b",
+      "doi_aliases": [
+        "10.18653/2026.findings-emnlp.576"
+      ]
     },
     {
       "title": "Developing a High-performance Framework for Speech Emotion Recognition in Naturalistic Conditions Challenge for Emotional Attribute Prediction",
@@ -8939,7 +8956,10 @@
       "added_at": "2026-10-25T14:13:09+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-0892cd06f7b594eb"
+      "id": "paper-0892cd06f7b594eb",
+      "doi_aliases": [
+        "10.18653/2026.findings-emnlp.1702"
+      ]
     },
     {
       "title": "EnigmaToM: Improve LLMs’ Theory-of-Mind Reasoning Capabilities with Neural Knowledge Base of Entity States",
@@ -8993,7 +9013,10 @@
       "added_at": "2026-10-26T13:55:28+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-74d0b0d9ccc6c867"
+      "id": "paper-74d0b0d9ccc6c867",
+      "doi_aliases": [
+        "10.18653/2026.findings-emnlp.1775"
+      ]
     },
     {
       "title": "My Words Imply Your Opinion: Reader Agent-Based Propagation Enhancement for Personalized Implicit Emotion Analysis",
@@ -9333,7 +9356,10 @@
       "added_at": "2026-10-27T14:17:42+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-74f48c98b6b73105"
+      "id": "paper-74f48c98b6b73105",
+      "doi_aliases": [
+        "10.18653/2026.findings-emnlp.2227"
+      ]
     },
     {
       "title": "Decoding LLM Personality Measurement: Forced-Choice vs. Likert",
@@ -9840,7 +9866,10 @@
       "added_at": "2026-10-28T15:25:05+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-106b1b07fb6b37ad"
+      "id": "paper-106b1b07fb6b37ad",
+      "doi_aliases": [
+        "10.18653/2026.findings-emnlp.27"
+      ]
     },
     {
       "title": "CPRISP: an interpretable deep learning framework predicting circRNA-RBP interactions and guiding therapeutic discovery in neurodegeneration",
@@ -9971,7 +10000,99 @@
       "added_at": "2026-10-30T15:38:22+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-801f34e812a2fea7"
+      "id": "paper-801f34e812a2fea7",
+      "doi_aliases": [
+        "10.18653/2026.emnlp-main.1085"
+      ]
+    },
+    {
+      "title": "Modeling realistic human behavior using generative agents in a multimodal transport system: Software architecture and Application to Toulouse",
+      "url": "https://arxiv.org/abs/2510.19497",
+      "pdf": "https://arxiv.org/pdf/2510.19497",
+      "doi": "10.48550/arXiv.2510.19497",
+      "doi_aliases": [],
+      "published": "2025-10-22",
+      "authors": "Trung-Dung Vu et al.",
+      "venue": "arXiv",
+      "status": "preprint",
+      "metadata_source": "arXiv API",
+      "summary_source": "https://arxiv.org/abs/2510.19497",
+      "arxiv_id": "2510.19497",
+      "arxiv_version": "2510.19497v1",
+      "arxiv_updated": "2025-10-22",
+      "group": "arxiv",
+      "topic": "cognition",
+      "title_zh": "基于生成代理的大语言模型在多模态交通系统中建模真实人类行为：以法国图卢兹为例",
+      "summary": "本文提出了一种在复杂多模态交通系统中建模真实人类出行行为的架构，并通过法国图卢兹的案例研究进行了验证。利用大语言模型（LLM）和基于代理的仿真，结合GAMA平台、GTFS数据和OpenTripPlanner，模拟了人们的出行决策过程。结果显示，代理不仅能够做出情境感知的交通决策，还能形成出行习惯。研究认为，结合LLM与基于代理的仿真为智能交通系统和个性化多模态出行解决方案的发展提供了新的方向。",
+      "target": "建模真实人类在多模态交通系统中的出行行为",
+      "method": "将大语言模型与基于代理的仿真结合，使用GAMA平台和GTFS数据进行模拟。",
+      "evidence": "通过图卢兹的案例研究，验证了代理模型在多模态交通系统中的决策过程。",
+      "limitation": "当前证据仅限于图卢兹地区，无法推广到更大范围的地区。",
+      "kind": "计算方法",
+      "selection_reason": "该研究通过将大语言模型（LLMs）与基于代理的模拟相结合，来模拟人类在复杂多模式交通系统中的行为决策。这种方法为智能交通系统和个性化多模式出行解决方案提供了新的计算表示和推断方法。具体贡献在于通过GAMA平台和LLM生成代理，结合GTFS数据和OpenTripPlanner，实现了对真实城市环境中交通决策的建模。这表明，结合LLMs与基于代理的模拟为认知决策的建模提供了一种新的方法。",
+      "added": "2026-10-31",
+      "added_at": "2026-10-31T15:12:51+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-1b29b9e547a4e7a8"
+    },
+    {
+      "title": "EmoNet: A Lightweight Attention-Based CNN for Speech Emotion Recognition",
+      "url": "https://arxiv.org/abs/2610.33977",
+      "pdf": "https://arxiv.org/pdf/2610.33977",
+      "doi": "10.48550/arXiv.2610.33977",
+      "doi_aliases": [],
+      "published": "2026-10-25",
+      "authors": "Muhammad Moiz Khalid et al.",
+      "venue": "arXiv",
+      "status": "preprint",
+      "metadata_source": "arXiv API",
+      "summary_source": "https://arxiv.org/abs/2610.33977",
+      "arxiv_id": "2610.33977",
+      "arxiv_version": "2610.33977v1",
+      "arxiv_updated": "2026-10-25",
+      "group": "arxiv",
+      "topic": "emotion",
+      "title_zh": "EmoNet：一种轻量级注意力机制的CNN语音情绪识别模型",
+      "summary": "该研究提出了一种轻量级的语音情绪识别模型EmoNet，用于跨七个情绪类别进行情绪分类。EmoNet基于深度可分离卷积编码器、Squeeze-and-Excitation注意力机制和残差连接，结合双向LSTM和多头注意力池化机制，以提高时间特征学习和表示能力。通过134通道的声学特征集和数据增强技术，EmoNet在TESS、RAVDESS和SAVEE数据集上的测试准确率达到96.75%，参数量仅为4.11百万，优于其基准模型。",
+      "target": "建模人的情绪识别能力",
+      "method": "基于深度可分离卷积编码器、Squeeze-and-Excitation注意力机制和双向LSTM的轻量级模型",
+      "evidence": "EmoNet在TESS、RAVDESS和SAVEE数据集上的测试准确率达到96.75%，参数量仅为4.11百万，优于其基准模型",
+      "limitation": "当前证据未明确EmoNet在所有实际应用场景中的表现",
+      "kind": "计算方法",
+      "selection_reason": "该研究提出了一种轻量级的深度学习框架EmoNet，用于跨七个情感类别的语音情感分类。模型基于深度可分离的CNN编码器，结合了双向LSTM和多头注意力池化机制，以提高时间特征学习和表示能力。此外，研究还使用了134通道的声学特征集和数据增强技术，以提高模型在不同声学条件下的鲁棒性。EmoNet在TESS、RAVDESS和SAVEE数据集上的测试准确率达到96.75%，参数量仅为4.11百万，优于其基准模型。这表明EmoNet在情感识别任务中具有良好的性能，且模型结构较为轻量，适用于资源受限的环境。",
+      "added": "2026-10-31",
+      "added_at": "2026-10-31T15:18:26+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-0969e9aa9fe54f52"
+    },
+    {
+      "title": "From Text to Emoji: How PEFT-Driven Personality Manipulation Unleashes the Emoji Potential in LLMs",
+      "doi": "10.18653/v1/2025.findings-naacl.265",
+      "url": "https://aclanthology.org/2025.findings-naacl.265/",
+      "pdf": "https://aclanthology.org/2025.findings-naacl.265.pdf",
+      "venue": "Findings of NAACL 2025",
+      "published": "2025-04",
+      "authors": "Navya Jain et al.",
+      "status": "published",
+      "metadata_source": "ACL Anthology",
+      "summary_source": "https://aclanthology.org/2025.findings-naacl.265/",
+      "group": "ai",
+      "topic": "person",
+      "title_zh": "从文本到表情符号：PEFT驱动的人格操控如何释放大语言模型的emoji潜力",
+      "summary": "本文研究了如何通过PEFT（特别是QLoRA）来操控大语言模型（LLM）的人格特质，特别是五大人格特质：开放性、尽责性、外向性、宜人性和神经质。研究发现，经过PEFT处理后，模型能够生成与特定人格特质相关的表情符号，如LLaMA-2-7B-chat在99.5%的外向性测试实例中生成了表情符号。研究通过解释性方法验证了这一现象，并展示了PEFT在人格操控方面的优越性。",
+      "target": "大语言模型的人格特质操控",
+      "method": "使用PEFT（特别是QLoRA）对LLM进行五大人格特质的操控，通过生成表情符号来验证模型的人格表达能力。",
+      "evidence": "通过Opinion QA数据集进行PEFT训练，使用Mechanistic Interpretability和In-context learning Explainability方法进行验证。",
+      "limitation": "当前证据无法证明PEFT在所有情境下都能有效操控LLM的人格特质，也无法证明生成的表情符号完全准确地反映了模型的人格特质。",
+      "kind": "计算方法",
+      "selection_reason": "该研究通过引入Opinion QA数据集进行PEFT驱动的人格操纵，开发了评估LLM人格特质的度量模型，并展示了PEFT在人格操纵方面的优越性。这些贡献直接与深度学习相关，因为研究涉及对大语言模型（LLM）进行参数高效微调，以操纵其人格特质，并通过解释性方法验证了模型的表征和机制。此外，研究通过生成表情符号来表达特定的人格特质，这表明模型在认知评价引导下生成了与人格特质相关的输出。",
+      "added": "2026-10-31",
+      "added_at": "2026-10-31T15:23:32+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-f501f7a3e2c6a4e5"
     }
   ],
   "summary_refresh": {
