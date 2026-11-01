@@ -7,8 +7,8 @@
     "crossref:0960-9822": 560,
     "crossref:2211-1247": 560,
     "crossref:1364-6613": 560,
-    "crossref-topic:emotion": 980,
-    "crossref-topic:mind": 980,
+    "crossref-topic:emotion": 1050,
+    "crossref-topic:mind": 1050,
     "datacite:world": 240,
     "datacite:emotion": 300,
     "datacite:mind": 300,
@@ -16,9 +16,9 @@
     "crossref:0036-8075": 630,
     "crossref:0092-8674": 630,
     "crossref-topic:person": 980,
-    "crossref:2397-3374": 560,
-    "crossref:2522-5839": 140,
-    "crossref:1097-6256": 560,
+    "crossref:2397-3374": 630,
+    "crossref:2522-5839": 0,
+    "crossref:1097-6256": 630,
     "crossref-topic:cognition": 980,
     "crossref:2041-1723": 490,
     "crossref:2731-9121": 70,
@@ -31,9 +31,9 @@
     "arxiv:world": 60,
     "arxiv:emotion": 960,
     "arxiv:mind": 0,
-    "arxiv:person": 240,
-    "arxiv:cognition": 0,
-    "arxiv:social": 60,
+    "arxiv:person": 300,
+    "arxiv:cognition": 60,
+    "arxiv:social": 120,
     "crossref:1548-7105": 70,
     "crossref:1087-0156": 70,
     "crossref:2662-8457": 70,
@@ -1681,7 +1681,7 @@
       "error": true
     },
     "paper-2c6224744dfad87b": {
-      "reviewed_at": "2026-10-29",
+      "reviewed_at": "2026-11-01",
       "accepted": true,
       "error": true
     },
@@ -1691,7 +1691,7 @@
       "error": false
     },
     "paper-e62b3d3bd86d1273": {
-      "reviewed_at": "2026-10-29",
+      "reviewed_at": "2026-11-01",
       "accepted": true,
       "error": true
     },
@@ -1706,7 +1706,7 @@
       "error": true
     },
     "paper-e9635badded74705": {
-      "reviewed_at": "2026-10-29",
+      "reviewed_at": "2026-11-01",
       "accepted": true,
       "error": true
     },
@@ -1716,7 +1716,7 @@
       "error": true
     },
     "paper-9953d5ba53c49673": {
-      "reviewed_at": "2026-10-29",
+      "reviewed_at": "2026-11-01",
       "accepted": true,
       "error": true
     },
@@ -1792,6 +1792,36 @@
     },
     "paper-760f67de0331f6b9": {
       "reviewed_at": "2026-10-31",
+      "accepted": true,
+      "error": true
+    },
+    "paper-40faa54038861aa2": {
+      "reviewed_at": "2026-11-01",
+      "accepted": true,
+      "error": false
+    },
+    "paper-5089a498a24436c7": {
+      "reviewed_at": "2026-11-01",
+      "accepted": true,
+      "error": true
+    },
+    "paper-b9beb67ad6567933": {
+      "reviewed_at": "2026-11-01",
+      "accepted": true,
+      "error": true
+    },
+    "paper-09a80e77f00aea60": {
+      "reviewed_at": "2026-11-01",
+      "accepted": true,
+      "error": false
+    },
+    "paper-c91f9911dcbecd2c": {
+      "reviewed_at": "2026-11-01",
+      "accepted": true,
+      "error": true
+    },
+    "paper-c1dfeb9d9f078e14": {
+      "reviewed_at": "2026-11-01",
       "accepted": true,
       "error": true
     }
