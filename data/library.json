@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-01",
+  "updated": "2026-11-02",
   "papers": [
     {
       "title": "A foundation model to predict and capture human cognition",
@@ -4316,7 +4316,16 @@
       "added_at": "2026-10-04T15:03:46+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-bc733acf4b200f31"
+      "id": "paper-bc733acf4b200f31",
+      "doi_aliases": [
+        "10.48550/arXiv.2306.00924"
+      ],
+      "url_aliases": [
+        "https://arxiv.org/abs/2306.00924"
+      ],
+      "title_aliases": [
+        "Minding Language Models' (Lack of) Theory of Mind: A Plug-and-Play Multi-Character Belief Tracker"
+      ]
     },
     {
       "title": "Aligning Thoughts with Answers: Probability Rewards to Tame Thinking Drift",
@@ -8986,7 +8995,13 @@
       "added_at": "2026-10-25T14:16:30+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-2b119bf13f0e7790"
+      "id": "paper-2b119bf13f0e7790",
+      "doi_aliases": [
+        "10.48550/arXiv.2503.03340"
+      ],
+      "url_aliases": [
+        "https://arxiv.org/abs/2503.03340"
+      ]
     },
     {
       "title": "TrajToM: Evaluating Theory of Mind over Mental State Trajectories in Social Dialogues",
@@ -10145,6 +10160,113 @@
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
       "id": "paper-09a80e77f00aea60"
+    },
+    {
+      "title": "A Full-Spectrum Generative Lead Discovery (FSGLD) pipeline via DRUG-GAN: A multiscale method for drug-like/target-specific compound library generation",
+      "doi": "10.1126/sciadv.aei5257",
+      "url": "https://doi.org/10.1126/sciadv.aei5257",
+      "venue": "Science Advances",
+      "published": "2026-10-30",
+      "status": "published",
+      "authors": "Beihong Ji et al.",
+      "metadata_source": "Crossref",
+      "summary_source": "https://api.crossref.org/works/10.1126%2Fsciadv.aei5257",
+      "group": "family",
+      "topic": "mind",
+      "title_zh": "基于DRUG-GAN的全谱生成先导化合物发现（FSGLD）流程：一种多尺度方法用于生成药物样和靶标特异性化合物库",
+      "summary": "本文提出了一种基于深度学习的全谱生成先导化合物发现（FSGLD）流程，通过整合生成模型、分子对接、分子动力学模拟、配体-残基相互作用谱、MM-PBSA、热力学积分和实验验证，实现了从理论设计到实际应用的过渡。FSGLD在三种药理学上不同的靶标类别中表现出色，能够识别靶标特异性候选化合物，并通过计算协议将热力学积分计算时间减少了80%至90%，同时保持准确性。",
+      "target": "建模药物样和靶标特异性化合物",
+      "method": "使用DRUG-GAN模型生成随机药物样化合物、靶标特异性化合物及其系列，并结合分子对接、分子动力学模拟、配体-残基相互作用谱、MM-PBSA和热力学积分进行评估。",
+      "evidence": "通过三种药理学上不同的靶标类别进行评估，FSGLD在识别靶标特异性候选化合物方面表现出色，并通过计算协议显著减少了计算时间。",
+      "limitation": "当前证据未证明FSGLD能够完全替代传统实验方法，仅能显著减少计算时间并提高识别效率。",
+      "kind": "计算方法",
+      "selection_reason": "该研究提出了一种名为FSGLD的深度学习驱动的药物先导化合物发现管道，该管道结合了生成模型、分子对接、分子动力学模拟、配体-残基相互作用谱、MM-PBSA、热力学积分和实验验证，以实现理论设计与实际应用的结合。核心的多尺度DRUG-GAN模型能够指导生成药物样和靶点特异性化合物，这表明该研究在深度学习与药物发现的实际应用中做出了实质性贡献。",
+      "added": "2026-11-02",
+      "added_at": "2026-11-02T15:37:51+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-eac329e6fbb7faec"
+    },
+    {
+      "title": "UPLex: Fine-Grained Personality Control in Large Language Models via Unsupervised Lexical Modulation",
+      "doi": "10.18653/v1/2025.findings-emnlp.219",
+      "url": "https://aclanthology.org/2025.findings-emnlp.219/",
+      "pdf": "https://aclanthology.org/2025.findings-emnlp.219.pdf",
+      "venue": "Findings of EMNLP 2025",
+      "published": "2025-11",
+      "authors": "Tianlong Li et al.",
+      "status": "published",
+      "metadata_source": "ACL Anthology",
+      "summary_source": "https://aclanthology.org/2025.findings-emnlp.219/",
+      "group": "ai",
+      "topic": "person",
+      "title_zh": "UPLex：通过无监督词汇调制实现大语言模型个性的细粒度控制",
+      "summary": "研究如何通过无监督词汇调制（UPLex）来控制大语言模型（LLMs）的个性，以提升用户体验。以往方法要么依赖于特定语料库的微调，要么需要手动提示来激发特定个性，但效率低下且难以精确操控。UPLex通过在解码阶段使用无监督构建的个性化词汇库（UPL）动态调整预测概率，实现LLMs个性的细粒度操控。实验表明，UPLex在细粒度操控大语言模型个性方面表现出色且具有可插拔性。",
+      "target": "通过无监督词汇调制实现大语言模型个性的细粒度控制",
+      "method": "使用无监督构建的个性化词汇库（UPL）在解码阶段动态调整大语言模型的预测概率",
+      "evidence": "通过无监督构建的个性化词汇库（UPL）进行实验，证明了UPLex在细粒度操控大语言模型个性方面的有效性和可插拔性",
+      "limitation": "当前证据仅限于特定场景，无法证明UPLex在所有场景下都能实现精确的个性操控",
+      "kind": "计算方法",
+      "selection_reason": "UPLex通过构建一个未监督的个性化词汇表（UPL）来动态调整大语言模型（LLMs）预测概率，从而精细地操控其人格特质。这种方法直接与深度学习模型的预测概率调整相关，体现了深度学习在精细操控LLMs人格方面的应用。",
+      "added": "2026-11-02",
+      "added_at": "2026-11-02T15:54:40+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-4c28bcde8f815114"
+    },
+    {
+      "title": "SocioBench: Modeling Human Behavior in Sociological Surveys with Large Language Models",
+      "doi": "10.18653/v1/2025.emnlp-main.1335",
+      "url": "https://aclanthology.org/2025.emnlp-main.1335/",
+      "pdf": "https://aclanthology.org/2025.emnlp-main.1335.pdf",
+      "venue": "EMNLP 2025",
+      "published": "2025-11",
+      "authors": "Jia Wang et al.",
+      "status": "published",
+      "metadata_source": "ACL Anthology",
+      "summary_source": "https://aclanthology.org/2025.emnlp-main.1335/",
+      "group": "ai",
+      "topic": "mind",
+      "title_zh": "SocioBench：利用大语言模型模拟社会调查中的人类行为",
+      "summary": "该研究构建了SocioBench基准，基于国际社会调查计划（ISSP）的年度标准化调查数据，涵盖30多个国家的48万多个真实受访者记录，涉及10个社会学领域和40多个人口统计属性。实验表明，大语言模型在模拟复杂调查场景中的个体行为时，准确率仅为30-40%，且在不同领域和人口子群体间存在显著差异。研究揭示了当前大语言模型在个体数据覆盖、场景多样性及群体建模方面的局限性。",
+      "target": "建模人类在社会调查中的行为",
+      "method": "使用大语言模型模拟国际社会调查计划的调查数据，涵盖30多个国家的48万多个真实受访者记录，涉及10个社会学领域和40多个人口统计属性",
+      "evidence": "基于国际社会调查计划的年度标准化调查数据进行实验，结果显示大语言模型在模拟复杂调查场景中的个体行为时，准确率仅为30-40%",
+      "limitation": "当前证据显示大语言模型在不同领域和人口子群体中的表现存在局限性，且在个体数据覆盖、场景多样性及群体建模方面存在不足",
+      "kind": "计算方法",
+      "selection_reason": "该研究通过SocioBench评估了大语言模型（LLMs）在模拟人类社会行为和态度方面的表现，特别是针对国际社会调查计划（ISSP）的数据。实验表明，LLMs在模拟个体在复杂调查场景中的行为时，准确率仅为30-40%，这揭示了当前LLMs在个体层面数据覆盖、场景多样性以及群体层面建模方面的局限性。这些发现直接与深度学习相关，因为它们强调了当前模型在处理复杂社会心理动态时的不足，为改进和开发更强大的深度学习模型提供了实证依据。",
+      "added": "2026-11-02",
+      "added_at": "2026-11-02T16:08:20+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-d0e710c18b0dda5c"
+    },
+    {
+      "title": "Real-time Ad Retrieval via LLM-generative Commercial Intention for Sponsored Search Advertising",
+      "doi": "10.18653/v1/2025.emnlp-main.1473",
+      "url": "https://aclanthology.org/2025.emnlp-main.1473/",
+      "pdf": "https://aclanthology.org/2025.emnlp-main.1473.pdf",
+      "venue": "EMNLP 2025",
+      "published": "2025-11",
+      "authors": "Tongtong Liu et al.",
+      "status": "published",
+      "metadata_source": "ACL Anthology",
+      "summary_source": "https://aclanthology.org/2025.emnlp-main.1473/",
+      "group": "ai",
+      "topic": "intent",
+      "title_zh": "基于大语言模型生成商业意图的实时广告检索框架",
+      "summary": "本文提出了一种基于大语言模型生成商业意图（CIs）的实时广告检索框架（RARE），通过生成文本作为中间语义表示，直接实现实时广告检索。该方法利用注入商业知识的定制大语言模型生成CIs，增强其领域相关性。实验表明，RARE在处理每日数十亿次搜索请求时，显著提升了广告消费5.04%、GMV 6.37%、点击率1.28%和浅层转化率5.29%。离线实验显示RARE在四个主要类别中优于十个基线方法。",
+      "target": "提升广告检索的实时性和效率",
+      "method": "利用大语言模型生成商业意图作为中间语义表示，直接检索广告",
+      "evidence": "通过在线系统实施和离线实验与十个基线方法对比，证明了RARE的有效性",
+      "limitation": "当前证据未明确RARE在所有场景下的适用性",
+      "kind": "计算方法",
+      "selection_reason": "该研究提出了一种新的计算方法，通过大语言模型生成的商业意图（CIs）来直接检索广告，从而实现实时广告检索。这种方法通过生成文本作为中间语义表示，提高了检索效率和可扩展性。实验结果表明，该方法在多个关键指标上优于现有基线，如点击率提升1.28%，浅层转化率提升5.29%。这些贡献直接与深度学习相关，因为大语言模型（LLMs）是实现该方法的核心技术。",
+      "added": "2026-11-02",
+      "added_at": "2026-11-02T16:20:39+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-4be960315419a119"
     }
   ],
   "summary_refresh": {
