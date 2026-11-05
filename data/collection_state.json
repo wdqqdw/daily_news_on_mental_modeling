@@ -23,20 +23,20 @@
     "crossref:2041-1723": 560,
     "crossref:2731-9121": 0,
     "crossref:2045-2322": 560,
-    "crossref-topic:social": 980,
+    "crossref-topic:social": 1050,
     "crossref:2375-2548": 490,
     "crossref:2470-9476": 70,
     "crossref:0896-6273": 490,
-    "crossref-topic:world": 980,
+    "crossref-topic:world": 1050,
     "arxiv:world": 120,
     "arxiv:emotion": 1020,
     "arxiv:mind": 60,
-    "arxiv:person": 300,
-    "arxiv:cognition": 60,
-    "arxiv:social": 120,
-    "crossref:1548-7105": 70,
-    "crossref:1087-0156": 70,
-    "crossref:2662-8457": 70,
+    "arxiv:person": 360,
+    "arxiv:cognition": 120,
+    "arxiv:social": 180,
+    "crossref:1548-7105": 140,
+    "crossref:1087-0156": 140,
+    "crossref:2662-8457": 0,
     "crossref:2520-1131": 0,
     "crossref:1745-2473": 70,
     "crossref:1078-8956": 70,
@@ -1781,7 +1781,7 @@
       "error": true
     },
     "paper-4ab1a5f9fe7bc93e": {
-      "reviewed_at": "2026-10-31",
+      "reviewed_at": "2026-11-05",
       "accepted": true,
       "error": true
     },
@@ -1831,7 +1831,7 @@
       "error": false
     },
     "paper-c0a2387b36c23253": {
-      "reviewed_at": "2026-11-02",
+      "reviewed_at": "2026-11-05",
       "accepted": true,
       "error": true
     },
@@ -1846,7 +1846,7 @@
       "error": false
     },
     "paper-146965e78f9e1477": {
-      "reviewed_at": "2026-11-02",
+      "reviewed_at": "2026-11-05",
       "accepted": true,
       "error": true
     },
@@ -1867,6 +1867,61 @@
     },
     "paper-4be960315419a119": {
       "reviewed_at": "2026-11-02",
+      "accepted": true,
+      "error": false
+    },
+    "paper-c9722cfbeb4f5ee9": {
+      "reviewed_at": "2026-11-05",
+      "accepted": true,
+      "error": false
+    },
+    "paper-09e4670844b72422": {
+      "reviewed_at": "2026-11-05",
+      "accepted": true,
+      "error": true
+    },
+    "paper-14b127de5973ab29": {
+      "reviewed_at": "2026-11-05",
+      "accepted": true,
+      "error": true
+    },
+    "paper-19b811827ca3fcf4": {
+      "reviewed_at": "2026-11-05",
+      "accepted": true,
+      "error": true
+    },
+    "paper-e9f1f08b1e952428": {
+      "reviewed_at": "2026-11-05",
+      "accepted": true,
+      "error": false
+    },
+    "paper-271a876222d23ebf": {
+      "reviewed_at": "2026-11-05",
+      "accepted": false,
+      "error": false
+    },
+    "paper-af6edc83d016a33f": {
+      "reviewed_at": "2026-11-05",
+      "accepted": false,
+      "error": false
+    },
+    "paper-5e16b39e295686f5": {
+      "reviewed_at": "2026-11-05",
+      "accepted": true,
+      "error": true
+    },
+    "paper-bce0716f95308381": {
+      "reviewed_at": "2026-11-05",
+      "accepted": true,
+      "error": true
+    },
+    "paper-861f22a7510577d5": {
+      "reviewed_at": "2026-11-05",
+      "accepted": false,
+      "error": false
+    },
+    "paper-a9eb4cbac2ec8c2a": {
+      "reviewed_at": "2026-11-05",
       "accepted": true,
       "error": false
     }
