@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-05",
+  "updated": "2026-11-06",
   "papers": [
     {
       "title": "A foundation model to predict and capture human cognition",
@@ -7838,7 +7838,13 @@
       "added_at": "2026-10-20T14:05:55+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-070968b2c3fe465e"
+      "id": "paper-070968b2c3fe465e",
+      "doi_aliases": [
+        "10.48550/arXiv.2412.13631"
+      ],
+      "url_aliases": [
+        "https://arxiv.org/abs/2412.13631"
+      ]
     },
     {
       "title": "How Personality Traits Shape LLM Risk-Taking Behaviour",
@@ -8762,7 +8768,13 @@
       "added_at": "2026-10-24T13:49:37+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-af8864399b79b41f"
+      "id": "paper-af8864399b79b41f",
+      "doi_aliases": [
+        "10.48550/arXiv.2506.02461"
+      ],
+      "url_aliases": [
+        "https://arxiv.org/abs/2506.02461"
+      ]
     },
     {
       "title": "Evaluating Theory of (an uncertain) Mind: Predicting the Uncertain Beliefs of Others from Conversational Cues",
@@ -10351,6 +10363,60 @@
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
       "id": "paper-a9eb4cbac2ec8c2a"
+    },
+    {
+      "title": "PychoAgent: Psychology-driven LLM Agents for Explainable Panic Prediction on Social Media during Sudden Disaster Events",
+      "doi": "10.18653/v1/2025.emnlp-main.865",
+      "url": "https://aclanthology.org/2025.emnlp-main.865/",
+      "pdf": "https://aclanthology.org/2025.emnlp-main.865.pdf",
+      "venue": "EMNLP 2025",
+      "published": "2025-11",
+      "authors": "Mengzhu Liu et al.",
+      "status": "published",
+      "metadata_source": "ACL Anthology",
+      "summary_source": "https://aclanthology.org/2025.emnlp-main.865/",
+      "group": "ai",
+      "topic": "cognition",
+      "title_zh": "PsychoAgent：基于心理理论的大语言模型代理，用于突发灾难事件期间社交媒体上的可解释恐慌预测",
+      "summary": "研究如何准确预测社交媒体上的公众恐慌情绪，以提高危机管理和主动治理的效果。本文提出了一种基于情绪唤醒理论的心理驱动生成代理框架（PsychoAgent），通过人类与大语言模型合作构建细粒度的恐慌情绪数据集（COPE），并结合心理机制整合跨域异质数据，以增强恐慌情绪预测的性能和解释性。实验结果显示，PsychoAgent相比基线模型提高了13%到21%的恐慌情绪预测性能。",
+      "target": "建模人的心理机制和恐慌情绪生成过程",
+      "method": "通过人类与大语言模型合作构建细粒度的恐慌情绪数据集（COPE），并结合心理机制整合跨域异质数据，设计基于大语言模型的角色扮演代理来模拟个体心理链。",
+      "evidence": "通过标注数据集进行实验，PsychoAgent在恐慌情绪预测性能上优于基线模型。",
+      "limitation": "当前证据仅能说明PsychoAgent在突发灾难事件期间的恐慌情绪预测中具有解释性和泛化能力，但不能证明其在所有情境下的临床疗效。",
+      "kind": "计算方法",
+      "selection_reason": "该研究提出了一种基于心理学的大语言模型代理框架（PsychoAgent），用于解释性恐慌预测。该框架通过认知评价引导的方法，结合了大规模语言模型的标注和人类注释者的合作，构建了一个细粒度的恐慌情感数据集（COPE），并利用跨域异质数据来建模风险感知和情绪生成的认知差异。此外，该研究设计了一个基于大语言模型的角色扮演代理，通过专门设计的提示来模拟个体的心理链，以增强可解释性。实验结果表明，PsychoAgent 在恐慌情感预测性能上比基线模型提高了 13% 到 21%。这些贡献直接与深度学习相关，因为该研究实际使用了大语言模型来构建和改进预测模型。",
+      "added": "2026-11-06",
+      "added_at": "2026-11-06T16:16:29+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-7e608e246100b199"
+    },
+    {
+      "title": "IntentionFrame: A Semi-Structured, Multi-Aspect Framework for Fine-Grained Conversational Intention Understanding",
+      "doi": "10.18653/v1/2025.emnlp-main.1427",
+      "url": "https://aclanthology.org/2025.emnlp-main.1427/",
+      "pdf": "https://aclanthology.org/2025.emnlp-main.1427.pdf",
+      "venue": "EMNLP 2025",
+      "published": "2025-11",
+      "authors": "Jinggui Liang et al.",
+      "status": "published",
+      "metadata_source": "ACL Anthology",
+      "summary_source": "https://aclanthology.org/2025.emnlp-main.1427/",
+      "group": "ai",
+      "topic": "intent",
+      "title_zh": "IntentionFrame：一种半结构化、多维度框架，用于细粒度对话意图理解",
+      "summary": "本文提出了一种基于心理学和认知意图理论的半结构化框架IntentionFrame，用于多轮对话中用户意图的理解。该框架将对话意图分为情境、情感、行动和知识四个相关方面，提高了对话AI的响应生成和任务完成能力。通过引入弱监督强化生成方法WeRG，利用少量高质量人工标注数据和大量粗标注数据，有效生成可靠的IntentionFrame标注，显著提升了大语言模型的对话理解能力。",
+      "target": "提升大语言模型的对话理解能力",
+      "method": "提出IntentionFrame框架，结合情境、情感、行动和知识四个方面；引入WeRG方法，利用少量高质量标注数据和大量粗标注数据生成可靠标注。",
+      "evidence": "实验通过自动评价指标和人工评估，证明IntentionFrame和WeRG方法显著提升了大语言模型的对话理解能力。",
+      "limitation": "当前证据未明确指出IntentionFrame和WeRG方法的具体临床疗效，仅证明了在对话理解任务中的有效性。",
+      "kind": "计算方法",
+      "selection_reason": "IntentionFrame框架通过组织对话意图到四个相互关联的方面（情况、情感、行动和知识），为大语言模型（LLM）提供了丰富的上下文，以准确解析和响应细微的用户输入。此外，通过引入弱监督强化生成（WeRG）方法，该研究利用少量高质量的人类注释和大量粗略标注的数据来生成可靠的IntentionFrame注释，从而显著提高了LLM的对话理解能力。这些方法直接与深度学习相关，因为它们涉及使用强化学习来平衡多样化的信号，以生成可靠的注释，这些注释对于下游任务至关重要。",
+      "added": "2026-11-06",
+      "added_at": "2026-11-06T16:27:06+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-26d8ef9eb96f5e19"
     }
   ],
   "summary_refresh": {
