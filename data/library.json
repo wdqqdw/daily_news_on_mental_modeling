@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-07",
+  "updated": "2026-11-08",
   "papers": [
     {
       "title": "A foundation model to predict and capture human cognition",
@@ -5863,7 +5863,13 @@
       "added_at": "2026-10-11T15:14:48+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-d57ec665b82e23e4"
+      "id": "paper-d57ec665b82e23e4",
+      "doi_aliases": [
+        "10.48550/arXiv.2505.00026"
+      ],
+      "url_aliases": [
+        "https://arxiv.org/abs/2505.00026"
+      ]
     },
     {
       "title": "A Comprehensive Review of Multimodal Facial State Analysis: Tasks, Methods, and Resources",
@@ -10470,6 +10476,33 @@
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
       "id": "paper-66406aeb538e9ada"
+    },
+    {
+      "title": "EmoStance: Response-Side Affective-Orientation Control for Empathetic Response Generation via Emoji Weak Supervision",
+      "doi": "10.18653/2026.emnlp-main.1360",
+      "url": "https://aclanthology.org/2026.emnlp-main.1360/",
+      "pdf": "https://aclanthology.org/2026.emnlp-main.1360.pdf",
+      "venue": "EMNLP 2026",
+      "published": "2026-10",
+      "authors": "Ziyuan Jin et al.",
+      "status": "published",
+      "metadata_source": "ACL Anthology",
+      "summary_source": "https://aclanthology.org/2026.emnlp-main.1360/",
+      "group": "ai",
+      "topic": "emotion",
+      "title_zh": "EmoStance：基于表情符号弱监督的情感导向控制生成共情回应",
+      "summary": "该研究通过表情符号的弱监督，控制生成共情回应的情感导向，以应对前发言者的情感状态。研究构建了EmojiDialogue数据集，并提出了EmoStance模型，该模型通过对话上下文和说话者角色预测情感导向，并引导冻结指令调优的大语言模型生成回应。实验结果显示，EmoStance在盲判中以62.2%的胜率显著提升了上下文具体性和回应感知性，同时与外部知识方法互补。",
+      "target": "建模人的情感导向控制能力",
+      "method": "通过多标注员的表情符号分布作为弱监督证据，构建EmojiDialogue数据集，提出EmoStance模型，利用对话上下文和说话者角色预测情感导向，并引导大语言模型生成回应。",
+      "evidence": "基于多标注员的emoji分布作为弱监督证据，通过盲判实验验证模型效果。",
+      "limitation": "当前证据仅在特定上下文和角色中验证了EmoStance的优越性，无法证明其在所有情感表达场景中的表现。",
+      "kind": "计算方法",
+      "selection_reason": "该研究提出了EmoStance方法，通过认知评价引导的方式，利用大语言模型（LLM）生成具有共情响应的文本。具体贡献在于通过多注释者emoji分布作为弱情感态度证据，诱导出一个潜在的控制空间，从而实现对响应侧情感倾向的控制。这与深度学习的联系在于，通过连续前缀嵌入引导冻结的指令调优LLM，从而生成具有特定情感倾向的响应。",
+      "added": "2026-11-08",
+      "added_at": "2026-11-08T15:29:52+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-4ab1a5f9fe7bc93e"
     }
   ],
   "summary_refresh": {
