@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-08",
+  "updated": "2026-11-09",
   "papers": [
     {
       "title": "A foundation model to predict and capture human cognition",
@@ -10503,6 +10503,32 @@
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
       "id": "paper-4ab1a5f9fe7bc93e"
+    },
+    {
+      "title": "Model-based reinforcement learning for ultrasound-driven autonomous microrobots",
+      "doi": "10.1038/s42256-025-01054-2",
+      "url": "https://doi.org/10.1038/s42256-025-01054-2",
+      "venue": "Nature Machine Intelligence",
+      "published": "2025-06-26",
+      "status": "published",
+      "authors": "Mahmoud Medany et al.",
+      "metadata_source": "Crossref",
+      "summary_source": "https://api.crossref.org/works/10.1038%2Fs42256-025-01054-2",
+      "group": "family",
+      "topic": "cognition",
+      "title_zh": "基于模型的强化学习在超声驱动自主微机器人中的应用",
+      "summary": "本文提出了一种基于模型的强化学习方法，用于超声驱动的自主微机器人的控制，通过学习反复想象的环境实现样本高效的学习。该方法在数据稀缺的环境中实现了精确的推进和高效的导航，成功率达到90%。研究对象为超声驱动的微机器人，主要方法是模型基于的强化学习，通过模拟环境进行预训练，然后在实际环境中进行微调。研究结果表明，该方法在新环境中具有良好的泛化能力，且在短时间内可以显著提高性能。",
+      "target": "建模微机器人的自主导航能力",
+      "method": "采用基于模型的强化学习方法，通过模拟环境进行预训练，然后在实际环境中进行微调，实现样本高效的学习和导航。",
+      "evidence": "通过模拟环境预训练和实际环境微调，成功实现微机器人在复杂血管中的导航和碰撞避免，泛化能力在30分钟内显著提高。",
+      "limitation": "当前证据仅限于模拟环境和特定实验条件下的性能，不能证明在所有实际应用场景中的表现。",
+      "kind": "计算方法",
+      "selection_reason": "该研究通过实现基于模型的强化学习来控制超声驱动的自主微机器人，展示了在数据稀缺环境中通过图像学习实现精确推进，并通过实验验证了样本效率的碰撞避免和通道导航。这表明深度学习方法在微机器人控制中的实际应用和改进。",
+      "added": "2026-11-09",
+      "added_at": "2026-11-09T16:18:12+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-fa60370df8272c27"
     }
   ],
   "summary_refresh": {
