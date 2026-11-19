@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-09",
+  "updated": "2026-11-19",
   "papers": [
     {
       "title": "A foundation model to predict and capture human cognition",
@@ -10074,7 +10074,9 @@
       "url": "https://arxiv.org/abs/2610.33977",
       "pdf": "https://arxiv.org/pdf/2610.33977",
       "doi": "10.48550/arXiv.2610.33977",
-      "doi_aliases": [],
+      "doi_aliases": [
+        "10.1109/IBCAST71075.2026.11761621"
+      ],
       "published": "2026-10-25",
       "authors": "Muhammad Moiz Khalid et al.",
       "venue": "arXiv",
@@ -10529,6 +10531,33 @@
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
       "id": "paper-fa60370df8272c27"
+    },
+    {
+      "title": "Your Mileage May Vary: How Empathy and Demographics Shape Human Preferences in LLM Responses",
+      "doi": "10.18653/v1/2025.findings-emnlp.935",
+      "url": "https://aclanthology.org/2025.findings-emnlp.935/",
+      "pdf": "https://aclanthology.org/2025.findings-emnlp.935.pdf",
+      "venue": "Findings of EMNLP 2025",
+      "published": "2025-11",
+      "authors": "Yishan Wang et al.",
+      "status": "published",
+      "metadata_source": "ACL Anthology",
+      "summary_source": "https://aclanthology.org/2025.findings-emnlp.935/",
+      "group": "ai",
+      "topic": "cognition",
+      "title_zh": "你的体验可能不同：人口统计学背景和同理心如何影响人类对大语言模型生成困境回应的偏好",
+      "summary": "研究发现，大语言模型在辅助主观决策（如道德推理、提供建议）时，其生成的回应偏好与人口统计学背景和同理心水平密切相关。研究通过分析人口统计学背景和同理心水平与偏好之间的关系，以及系统研究预测性语言特征（如代理、情感语调），揭示了显著的人口统计学差异，并识别出预测群体差异的标志（如权力动词、犹豫用词）。这些结果强调了在评估大语言模型时需要考虑人口统计学背景的重要性。",
+      "target": "建模人对大语言模型生成回应的偏好如何受人口统计学背景和同理心影响",
+      "method": "分析人口统计学背景和同理心水平与偏好之间的关系，系统研究预测性语言特征",
+      "evidence": "通过分析人类对大语言模型生成的困境回应的偏好，识别出预测群体差异的标志",
+      "limitation": "当前证据无法证明大语言模型生成的回应偏好具有临床疗效，仅能揭示偏好与人口统计学背景和同理心水平之间的关系",
+      "kind": "计算方法",
+      "selection_reason": "研究通过分析大语言模型（LLMs）生成的困境回应，探讨了情绪、信念、意图、人格、认知、决策或社会心理动态。具体贡献在于识别了预测群体差异的标记（如权力动词、犹豫用语），这些标记与认知评价引导的特征相关。公开摘要中提到的“predictive linguistic features (e.g., agency, emotional tone)”直接与深度学习的表征和机制相关，表明研究通过分析语言特征来理解人类偏好，这与深度学习中的自然语言处理任务密切相关。",
+      "added": "2026-11-19",
+      "added_at": "2026-11-19T16:43:41+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-c0a2387b36c23253"
     }
   ],
   "summary_refresh": {
