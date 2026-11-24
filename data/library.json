@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated": "2026-11-21",
+  "updated": "2026-11-24",
   "papers": [
     {
       "title": "A foundation model to predict and capture human cognition",
@@ -5490,7 +5490,13 @@
       "added_at": "2026-10-09T15:46:17+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-06c4c3cd31c15370"
+      "id": "paper-06c4c3cd31c15370",
+      "doi_aliases": [
+        "10.48550/arXiv.2505.17663"
+      ],
+      "url_aliases": [
+        "https://arxiv.org/abs/2505.17663"
+      ]
     },
     {
       "title": "From Surface to Depth: Towards Cognitive Appraisal Reasoning in Multimodal Emotion Understanding",
@@ -6134,7 +6140,13 @@
       "added_at": "2026-10-12T15:38:54+08:00",
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
-      "id": "paper-44291a59954773a8"
+      "id": "paper-44291a59954773a8",
+      "doi_aliases": [
+        "10.48550/arXiv.2501.01705"
+      ],
+      "url_aliases": [
+        "https://arxiv.org/abs/2501.01705"
+      ]
     },
     {
       "title": "Cognition-Oriented Emotion Tracing from Causes to Consequences in Real-World Social Scenes",
@@ -10641,6 +10653,32 @@
       "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
       "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
       "id": "paper-6b6d1d4e15963913"
+    },
+    {
+      "title": "A multimodal ultrasound foundation model for diagnosis of unexplained lymphadenopathy",
+      "doi": "10.1038/s41467-026-79690-4",
+      "url": "https://doi.org/10.1038/s41467-026-79690-4",
+      "venue": "Nature Communications",
+      "published": "2026-11-23",
+      "status": "published",
+      "authors": "Ran Cao et al.",
+      "metadata_source": "Crossref",
+      "summary_source": "https://www.nature.com/articles/s41467-026-79690-4",
+      "group": "family",
+      "topic": "cognition",
+      "title_zh": "一种多模态超声基础模型用于不明原因淋巴结肿大的诊断",
+      "summary": "该研究开发并验证了一种结合B模式超声、彩色多普勒血流成像、超声弹性成像、对比增强超声视频和临床数据的多模态模型，用于良恶性鉴别、病因分类和转移起源预测。该研究包括回顾性和前瞻性队列，共使用来自7个中国中心和11个制造商的6,549名患者的154,740张多模态关键帧图像。模型在不同队列中表现出稳健性能，优于高级放射科医生，并通过模型辅助提高了不同经验水平放射科医生的诊断性能，支持其在非侵入性、高效和临床对齐的诊断不明原因淋巴结肿大中的应用。",
+      "target": "提高不明原因淋巴结肿大的诊断准确性",
+      "method": "开发并验证了结合B模式超声、彩色多普勒血流成像、超声弹性成像、对比增强超声视频和临床数据的多模态模型",
+      "evidence": "使用来自7个中国中心和11个制造商的6,549名患者的154,740张多模态关键帧图像进行验证，模型在不同队列中表现出稳健性能，优于高级放射科医生，并通过模型辅助提高了不同经验水平放射科医生的诊断性能",
+      "limitation": "当前证据不能证明该模型在所有临床场景中的绝对优越性，也不能证明其长期临床应用效果",
+      "kind": "计算方法",
+      "selection_reason": "该研究开发并验证了一种多模态模型，结合了B模式超声、彩色多普勒血流成像、超声弹性成像、对比增强超声视频和临床数据，用于良恶性鉴别、病因分类和转移起源预测。该模型在多个内部和外部验证队列中表现出色，优于高级放射科医生，并能提高放射科医生的诊断性能。这些贡献直接与深度学习相关，因为模型的开发和验证依赖于多模态数据的整合和深度学习技术的应用。",
+      "added": "2026-11-24",
+      "added_at": "2026-11-24T18:52:02+08:00",
+      "summary_method": "AI 根据公开摘要整理并复核；研究边界包含证据范围判断",
+      "summary_model": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+      "id": "paper-ff62a0c6d0435b7c"
     }
   ],
   "summary_refresh": {
