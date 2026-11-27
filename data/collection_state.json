@@ -15,25 +15,25 @@
     "crossref:0028-0836": 770,
     "crossref:0036-8075": 770,
     "crossref:0092-8674": 770,
-    "crossref-topic:person": 1260,
+    "crossref-topic:person": 1330,
     "crossref:2397-3374": 700,
     "crossref:2522-5839": 70,
     "crossref:1097-6256": 700,
-    "crossref-topic:cognition": 1120,
+    "crossref-topic:cognition": 1190,
     "crossref:2041-1723": 560,
     "crossref:2731-9121": 0,
     "crossref:2045-2322": 560,
     "crossref-topic:social": 1050,
-    "crossref:2375-2548": 560,
-    "crossref:2470-9476": 0,
-    "crossref:0896-6273": 560,
+    "crossref:2375-2548": 630,
+    "crossref:2470-9476": 70,
+    "crossref:0896-6273": 630,
     "crossref-topic:world": 1190,
     "arxiv:world": 300,
     "arxiv:emotion": 1200,
     "arxiv:mind": 240,
-    "arxiv:person": 600,
-    "arxiv:cognition": 360,
-    "arxiv:social": 0,
+    "arxiv:person": 0,
+    "arxiv:cognition": 420,
+    "arxiv:social": 60,
     "crossref:1548-7105": 210,
     "crossref:1087-0156": 210,
     "crossref:2662-8457": 70,
@@ -1846,7 +1846,7 @@
       "error": false
     },
     "paper-146965e78f9e1477": {
-      "reviewed_at": "2026-11-24",
+      "reviewed_at": "2026-11-27",
       "accepted": true,
       "error": true
     },
@@ -1876,7 +1876,7 @@
       "error": false
     },
     "paper-09e4670844b72422": {
-      "reviewed_at": "2026-11-24",
+      "reviewed_at": "2026-11-27",
       "accepted": true,
       "error": true
     },
@@ -1886,7 +1886,7 @@
       "error": true
     },
     "paper-19b811827ca3fcf4": {
-      "reviewed_at": "2026-11-24",
+      "reviewed_at": "2026-11-27",
       "accepted": true,
       "error": true
     },
@@ -1911,7 +1911,7 @@
       "error": true
     },
     "paper-bce0716f95308381": {
-      "reviewed_at": "2026-11-19",
+      "reviewed_at": "2026-11-27",
       "accepted": true,
       "error": true
     },
@@ -1926,12 +1926,12 @@
       "error": false
     },
     "paper-839371437774d063": {
-      "reviewed_at": "2026-11-24",
+      "reviewed_at": "2026-11-27",
       "accepted": true,
       "error": true
     },
     "paper-fd74c879e003210b": {
-      "reviewed_at": "2026-11-24",
+      "reviewed_at": "2026-11-27",
       "accepted": true,
       "error": true
     },
@@ -1986,12 +1986,12 @@
       "error": true
     },
     "paper-0f19f09d9d867b40": {
-      "reviewed_at": "2026-11-24",
+      "reviewed_at": "2026-11-27",
       "accepted": true,
       "error": true
     },
     "paper-bc2b9520afa2269d": {
-      "reviewed_at": "2026-11-19",
+      "reviewed_at": "2026-11-27",
       "accepted": true,
       "error": true
     },
@@ -2096,7 +2096,32 @@
       "error": false
     },
     "paper-be4d35a7e38c2dea": {
-      "reviewed_at": "2026-11-24",
+      "reviewed_at": "2026-11-27",
+      "accepted": true,
+      "error": false
+    },
+    "paper-e84e6859261d490d": {
+      "reviewed_at": "2026-11-27",
+      "accepted": true,
+      "error": true
+    },
+    "paper-981b2b7c455cde53": {
+      "reviewed_at": "2026-11-27",
+      "accepted": true,
+      "error": true
+    },
+    "paper-070e8541e6157660": {
+      "reviewed_at": "2026-11-27",
+      "accepted": true,
+      "error": false
+    },
+    "paper-f9c72df98f93bdc5": {
+      "reviewed_at": "2026-11-27",
+      "accepted": true,
+      "error": true
+    },
+    "paper-13c7d2df009007d9": {
+      "reviewed_at": "2026-11-27",
       "accepted": true,
       "error": true
     }
